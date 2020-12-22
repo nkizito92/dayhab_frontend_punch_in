@@ -3,9 +3,15 @@ const clockinsReducer = (state = {punches: [], loading: false}, action) => {
         case "LOADING_PUNCHES":
             return {
                 ...state,
-                punches: [...state.punchIns],
+                punches: [...state.punches],
                 loading: true
             }
+
+            case "ADD_PUNCHES": 
+                return {
+                    ...state,
+                    punches: action.punches
+                }
 
             default:
                 return state
@@ -13,3 +19,5 @@ const clockinsReducer = (state = {punches: [], loading: false}, action) => {
 
 
 }
+
+export default clockinsReducer
