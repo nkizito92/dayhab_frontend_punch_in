@@ -5,8 +5,10 @@ export const fetchPunches = () => {
         dispatch({type: 'LOADING_PUNCHES'})
         fetch(`${onlineUrl()}/punches`).then(res => {
             return res.json()
-        }).then(punchIns => {
-            dispatch({ type: 'ADD_PUNCHES', punches: punchIns})
+        }).then(punch => {
+            dispatch({ type: 'ADD_PUNCHES', punches: punch})
         })
     }
+
+
 }
