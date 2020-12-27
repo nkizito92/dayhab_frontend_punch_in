@@ -9,8 +9,9 @@ export const addClient = client => {
 export const fetchClients = () => {
     return (dispatch) => {
         dispatch({type: 'LOADING_CLIENTS'})
-        fetch(`${onlineUrl}/clients`)
-        .then(res => res.json())
+        fetch(`${onlineUrl()}/clients`).then(res => {
+            return res.json()
+        })
         .then(disClients => {
             dispatch({type: 'ADD_CLIENTS', clients: disClients})
         })
