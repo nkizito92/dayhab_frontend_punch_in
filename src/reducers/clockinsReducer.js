@@ -12,6 +12,13 @@ const clockinsReducer = (state = {punches: [], loading: false}, action) => {
                     ...state,
                     punches: action.punches
                 }
+            
+            case "ADD_PUNCH":
+                debugger
+                return {
+                    ...state,
+                    punches: [...state.punches, action.punch]
+                }
 
             default:
                 return state
