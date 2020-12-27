@@ -1,7 +1,5 @@
-import { act } from "react-dom/test-utils"
-
 const clientsReducer = (state= {clients: [], loading: false}, action) => {
-    switch(action){
+    switch(action.type){
         case 'LOADING_CLIENTS':
             return {
                 ...state,
@@ -20,8 +18,11 @@ const clientsReducer = (state= {clients: [], loading: false}, action) => {
                 ...state,
                 clients: [...state.clients, action.client]
             }
-        default: return state
+        default:
+            return state
 
 
     }
 }
+
+export default clientsReducer
