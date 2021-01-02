@@ -8,12 +8,13 @@ class Clients extends Component {
         })
     }
     render() {
+        console.log(this.props.clients)
         return (
             <div>
                 Hi
                 <div>
+                    <h1>Clients</h1>
                     <table border="1">
-                        <th>Clients</th>
                         <tr><td>full_name</td><td>Pay Rate</td> <td>Total hours</td></tr>
                         {this.display()}
                     </table>
