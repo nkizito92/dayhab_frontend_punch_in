@@ -35,3 +35,42 @@ export const createDriver = driver => {
             })
     }
 }
+
+export const editDriver = driver => {
+    return ({
+        type: "EDIT_DRIVER",
+        driver: driver
+    })
+}
+
+export const updateDriver = driverId => {
+    return(dispatch) => {
+        fetch(`${onlineUrl()}/drivers/${driverId.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({driver: driverId})
+        }).then(res => res.json())
+        .then(updatedDriver => {
+            dispatch(editDriver(updatedDriver))
+        }).catch(error => console.log(error))
+    }
+}
+export const removeDriver = driver => {
+    return ({
+        type: 'DELETE_DRIVER',
+        driver: driver
+    })
+}
+
+export const deleteDriver = driver => {
+    return (dispatch) => {
+        fetch(`${onlineUrl()}/drivers/${driver.id}`, {
+            method: "DELETE",
+        }).then(res => res.json())
+            .then(deletedDriver => {
+                dispatch(removeDriver(deletedDriver))
+            })
+    }
+}
