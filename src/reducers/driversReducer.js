@@ -20,17 +20,24 @@ const driversReducer = (state = { drivers: [], loading: false }, action) => {
             }
 
         case 'EDIT_DRIVER':
-            const driver_Id = state.drivers.findIndex(driver => driver.id === action.driver.id)
+            const editedDriver = state.drivers.map(driver => {
+                if (driver.id === action.driver.id) {
+                    driver.first_name = action.driver.first_name
+                    driver.last_name = action.driver.last_name
+                }
+                return driver
+            })
             return {
                 ...state,
-                drivers: [...state.drivers.slice(0, driver_Id), ...state.drivers.slice(driver_Id + 1)]
+                drivers: editedDriver
             }
 
         case 'DELETE_DRIVER':
-            const driverId = state.drivers.findIndex(driver => driver.id === action.driver.id)
-            return {
+            debugger
+           return {
                 ...state,
-                drivers: [...state.drivers.slice(0, driverId), ...state.drivers.slice(driverId + 1)]
+                drivers: state.drivers.map(driver => driver.id !== action.driver.id)
+                // drivers: [...state.drivers.slice(0, driverId), ...state.drivers.slice(driverId + 1)]
             }
 
         default:
