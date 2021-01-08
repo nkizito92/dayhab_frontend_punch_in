@@ -1,4 +1,5 @@
 import { onlineUrl } from './urlLink'
+import axios from 'axios'
 export const addClient = client => {
     return ({
         type: 'ADD_CLIENT',
@@ -26,8 +27,27 @@ export const createClient = client => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ client: client }) 
+                body: JSON.stringify({ client: client })
             }).then(res => res.json())
-            .then(newClient => dispatch({type: "ADD_CLIENT", client: newClient}))
-        }
+            .then(newClient => dispatch({ type: "ADD_CLIENT", client: newClient }))
+    }
+}
+export const editClient = client => {
+    return {
+        type: "EDIT_CLIENT",
+        client: client
+    }
+}
+export const updateClient = client => {
+    return (dispatch) => {
+        axios.patch(`${onlineUrl()}/clients/${client.id}`, {client})
+            .then(res => dispatch(editClient(res.data)))
+    }
+}
+
+export const deleteClient = client => {
+    return (dispatch) => {
+        axios.delete(`${onlineUrl()}/clients/${client.id}`)
+        .then(res => dispatch({type: "DELETE_CLIENT", client: res.data}))
+    }
 }
