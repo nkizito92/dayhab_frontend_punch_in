@@ -33,11 +33,9 @@ const driversReducer = (state = { drivers: [], loading: false }, action) => {
             }
 
         case 'DELETE_DRIVER':
-            debugger
            return {
                 ...state,
-                drivers: state.drivers.map(driver => driver.id !== action.driver.id)
-                // drivers: [...state.drivers.slice(0, driverId), ...state.drivers.slice(driverId + 1)]
+                drivers: state.drivers.filter(driver => driver.id !== action.driver.id)
             }
 
         default:

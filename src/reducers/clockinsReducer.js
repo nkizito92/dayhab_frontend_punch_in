@@ -19,6 +19,20 @@ const clockinsReducer = (state = {punches: [], loading: false}, action) => {
                     punches: [...state.punches, action.punch]
                 }
 
+            case "EDIT_PUNCH":
+                const editPunch = state.punches.map(punch => {
+                    if(punch.id === action.punch.id) {
+                        punch.clock_in = action.punch.clock_in
+                        punch.clock_out = action.punch.clock_out
+                        punch.date = action.punch.date
+                    }
+                    return punch
+                })
+                return{
+                    ...state,
+                    punches: editPunch
+                }
+
             default:
                 return state
     }
