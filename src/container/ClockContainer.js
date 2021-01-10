@@ -1,14 +1,12 @@
 import React, {Component} from 'react'
-import ClockIn from '../components/ClockIn'
+import ClockIn from "../components/clockComponents/ClockIn"
 class ClockContainer extends Component {
     render() {
-        console.log(this.props.punchIns)
         return (
             <div>
-                <ClockIn punchIn={this.props.punches} />
+                <ClockIn punchIn={this.props.punches} clients={this.props.clients} />
             </div>
         )
     }
 }
-
 export default ClockContainer
