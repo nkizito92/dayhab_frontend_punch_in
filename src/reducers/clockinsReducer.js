@@ -33,6 +33,12 @@ const clockinsReducer = (state = {punches: [], loading: false}, action) => {
                     punches: editPunch
                 }
 
+            case 'DELETE_PUNCH':
+                return {
+                    ...state,
+                    punches: state.punches.filter(punch => punch.id !== action.punch.id)
+                }
+
             default:
                 return state
     }
