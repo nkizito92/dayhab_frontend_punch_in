@@ -35,11 +35,11 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={() => <ClockContainer punches={this.props.punches} clients={this.props.clients}/>} />
           <Route exact path="/clients" component={() => <ClientContainer clients={this.props.clients} punches={this.props.punches} />} />
-          <Route exact path="/clients/new" component={(history) => <ClientForm drivers={this.props.drivers} clients={this.props.clients} history={history} />} />
+          <Route exact path="/clients/new" component={({history}) => <ClientForm drivers={this.props.drivers} clients={this.props.clients} history={history} />} />
           <Route exact path="/clients/:id" component={({ match, history }) => <ClientShow clients={this.props.clients} history={history} match={Number(parseInt(match.params.id))} />} />
           <Route exact path="/clients/:id/edit" component={({ match, history }) => <ClientEdit clients={this.props.clients} history={history} match={Number(parseInt(match.params.id))} drivers={this.props.drivers} />} />
           <Route exact path="/drivers" component={() => <DriverContainer drivers={this.props.drivers} />} />
-          <Route exact path="/drivers/new" component={() => <DriverForm />} />
+          <Route exact path="/drivers/new" component={({history}) => <DriverForm history={history} drivers={this.props.drivers} />} />
           <Route exact path="/drivers/:id" component={({ match, history }) => <DriverShow drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} />} />
           <Route exact path="/drivers/:id/edit" component={({ match, history }) => <DriverEdit drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} />} />
         </Switch>
