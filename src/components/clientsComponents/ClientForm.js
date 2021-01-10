@@ -29,9 +29,11 @@ const ClientForm = ({ createClient, drivers, clients, history }) => {
             setFlash(`${fullname} is Created!!`)
 
             createClient(newClient)
-            setTimeout(() => history.push('/clients'), 2300)
+            setTimeout(() => {
+                if(history!==undefined)
+                history.push('/clients')
+            }, 2300)
         } else {
-            debugger
             errors.className = "error"
             setError("Please Fill All Fields Out")
         }
