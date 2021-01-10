@@ -3,3 +3,46 @@ nav {
     background-color: #0084ff;
     padding: 10px 0;
 }
+
+.updated, .error{
+    position: relative;
+    margin:0 auto;
+    width: 400px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #e2ff9e;
+    color: #008000;
+    animation: flash 2s linear;
+    opacity: 0;
+}
+
+.loading:after {
+    font-size: larger;
+    font-weight: 600;
+    animation: load 1s infinite;
+    content: "Loading.";
+}
+
+
+@keyframes load {
+    0%{content: "Loading..";}
+    50%{content: "Loading...";}
+    100%{content: "Loading....";}
+}
+.error {
+    background-color: #ff9e9e;
+    color:#ca0000;
+}
+.errorField {
+    border: 2px solid red
+}
+table {
+    width: 400px;
+    margin: 0 auto;
+}
+
+@keyframes flash {
+    0%{opacity: 1;}
+    75%{opacity: 1;}
+    100%{opacity: 0;}
+}
