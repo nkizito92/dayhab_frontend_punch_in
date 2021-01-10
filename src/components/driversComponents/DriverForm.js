@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { createDriver } from '../../action/driverAction'
 import React, { useState } from 'react'
 
-const DriverForm = ({ createDriver }) => {
+const DriverForm = ({ createDriver, history, drivers }) => {
     const [fName, setFname] = useState();
     const [lName, setLname] = useState();
     const [flash, setFlash] = useState();
@@ -20,6 +20,7 @@ const DriverForm = ({ createDriver }) => {
             flashing.className = "updated"
             setFlash(`${fName}, ${lName} Created!`)
             createDriver(newDriver)
+            setTimeout(() => history.push("/drivers"), 2200);
         } else {
             document.getElementById("fail").className = "error"
             setError("Please fill in the fields")
