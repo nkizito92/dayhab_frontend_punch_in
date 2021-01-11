@@ -1,19 +1,40 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 
-const link = {
-    padding: "8px 10px",
-    margin: "0 3px",
-    color: "#ffff",
-    textDecoration: 'none'
-}
+const Navbar = ({ userName, isLoggedIn }) => {
 
-const Navbar = () => (
-    <>
-        <NavLink to="/" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Home</NavLink>
-        <NavLink to="/clients" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Clients</NavLink>
-        <NavLink to="/drivers" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Drivers</NavLink>
-        <NavLink to="/clients/new" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Create Client</NavLink>
-    </>
-)
+    const link = {
+        padding: "8px 10px",
+        margin: "0 3px",
+        color: "#ffff",
+        textDecoration: 'none'
+    }
+
+    function displayOtherLinks() {
+        if (isLoggedIn) {
+            return (
+                <>
+                    <NavLink to="/clients/new" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Create Client</NavLink>
+                    <NavLink to="/logout" exact style={link} activeStyle={{ backgroundColor: "navy" }}>LogOut</NavLink>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <NavLink to="/login" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Login</NavLink>
+                </>
+            )
+        }
+    }
+    // hide some nav links if not logged in
+    return (
+        <>
+            <span> {userName.username}</span>
+            <NavLink to="/" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Home</NavLink>
+            <NavLink to="/clients" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Clients</NavLink>
+            <NavLink to="/drivers" exact style={link} activeStyle={{ backgroundColor: "navy" }}>Drivers</NavLink>
+            {displayOtherLinks()}
+        </>
+    )
+}
 export default Navbar
