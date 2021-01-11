@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { goSignup } from '../../action/adminAction'
-const Signup = ({ history, handleLogin }) => {
+const Signup = ({ history, handleLogin, isLoggedIn }) => {
     const [username, setUname] = useState()
     const [password, setPass] = useState()
     const [password_confirmation, setPassCon] = useState()
@@ -15,6 +15,11 @@ const Signup = ({ history, handleLogin }) => {
         }
         goSignup(signUpUser, handleLogin, history)
 
+    }
+    let redirect = () => {
+        if (isLoggedIn) {
+            <>{history.push("/")}</>
+        }
     }
 
     return (
@@ -41,6 +46,7 @@ const Signup = ({ history, handleLogin }) => {
                 /> <br />
                 <button placeholder="submit" type="submit" onClick={handleSubmit}>Sign Up</button>
             </form>
+            {redirect()}
         </div>
     )
 }

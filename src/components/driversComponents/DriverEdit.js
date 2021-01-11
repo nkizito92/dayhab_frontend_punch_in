@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux'
 import { deleteDriver, updateDriver } from '../../action/driverAction'
-const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver }) => {
+const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLoggedIn }) => {
     const [flash, setFlash] = useState()
     const [fName, setFname] = useState()
     const [lName, setLname] = useState()
@@ -63,6 +63,11 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver }) => 
         // let loadingPage = history.location.pathname.split(`drivers/${match}`)[0]
         setTimeout(() => history.push("/drivers"), 2300)
     }
+    let redirect = () => {
+        if (!isLoggedIn) {
+            <>{history.push("/login")}</>
+        }
+    }
     return (
         <div>
             <div>
@@ -79,6 +84,7 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver }) => 
                 <Link to={`/drivers/${match}`}>Back</Link>
             </div>
             <div className="flashy">{flash}</div>
+            {redirect()}
         </div>
     )
 }

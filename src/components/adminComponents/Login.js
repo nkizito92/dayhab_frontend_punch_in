@@ -14,7 +14,12 @@ const Login = ({ handleLogin, history, isLoggedInNow }) => {
         }
         goLogin(logging, handleLogin, history)
     }
-    console.log("is it ready",isLoggedInNow)
+
+    let redirect = () => {
+        if (isLoggedInNow) {
+            <>{setTimeout(() => history.push("/clients"), 2200)}</>
+        }
+    }
 
     return (
         <div>
@@ -32,6 +37,7 @@ const Login = ({ handleLogin, history, isLoggedInNow }) => {
                 </div>
 
             </form>
+            {redirect()}
         </div>
     )
 }

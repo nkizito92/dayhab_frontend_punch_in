@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { createClient } from "../../action/clientAction"
 import { connect } from 'react-redux'
 
-const ClientForm = ({ createClient, drivers, clients, history }) => {
+const ClientForm = ({ createClient, drivers, history, isLoggedIn }) => {
     const [fullname, setfullName] = useState(undefined)
     const [pay_rate, setPay_rate] = useState(undefined)
     const [driverId, setDriver] = useState(undefined)
@@ -38,6 +38,11 @@ const ClientForm = ({ createClient, drivers, clients, history }) => {
             setError("Please Fill All Fields Out")
         }
     }
+    let redirect = () => {
+        if (!isLoggedIn) {
+            <>{history.push("/login")}</>
+        }
+    }
     return (
         <div><h1>Client Form</h1>
             <form onSubmit={e => handleSubmit(e)}>
@@ -50,6 +55,7 @@ const ClientForm = ({ createClient, drivers, clients, history }) => {
             </form>
             <div id="flash">{flash}</div>
             <div id="fail">{error}</div>
+            {redirect()}
         </div>
     )
 }

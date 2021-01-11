@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { updateClient, deleteClient } from "../../action/clientAction"
 import { Link } from "react-router-dom"
 
-const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, match, clients }) => {
+const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, match, clients, isLoggedIn }) => {
     const [fullName, setfullName] = useState()
     const [payRate, setPayRate] = useState()
     const [driverId, setDriver] = useState()
@@ -88,11 +88,17 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
         setTimeout(() => history.push("/clients"), 2300)
     }
 
+    let redirect = () => {
+        if (!isLoggedIn) {
+            <>{history.push("/login")}</>
+        }
+    }
     return (
         <div>
             {displayClient()}
             <div>
                 <Link to={`/clients/${match}`}>Back</Link>
+                {redirect()}
             </div>
         </div>
     )

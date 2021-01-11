@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-const DriverShow = ({ drivers, history, match }) => {
+const DriverShow = ({ drivers, history, match, isLoggedInNow }) => {
     let driver = drivers.find(driver => driver.id === match)
     let displayDriver = () => {
         if (driver !== undefined) {
@@ -24,15 +24,22 @@ const DriverShow = ({ drivers, history, match }) => {
         }
     }
 
+    let displayEditLink = () => {
+        if (isLoggedInNow) {
+            return (
+                <div>
+                    <Link to="/drivers">Back</Link> <Link to={`/drivers/${match}/edit`}>Edit Driver</Link>
+                </div>
+            )
+        } 
+    }
+
     return (
         <div>
             <div>
                 <h2>Clients:</h2> {displayDriver()}
             </div>
-            <div>
-                <Link to="/drivers">Back</Link> <Link to={`/drivers/${match}/edit`}>Edit Driver</Link>
-            </div>
-
+            {displayEditLink()}
         </div>
     )
 }

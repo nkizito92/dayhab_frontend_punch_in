@@ -2,12 +2,12 @@ import { connect } from 'react-redux'
 import { createDriver } from '../../action/driverAction'
 import React, { useState } from 'react'
 
-const DriverForm = ({ createDriver, history, drivers }) => {
+const DriverForm = ({ createDriver, history, isLoggedIn }) => {
     const [fName, setFname] = useState();
     const [lName, setLname] = useState();
     const [flash, setFlash] = useState();
     const [error, setError] = useState();
-    
+
     let handleSumbit = e => {
         let flashing = document.getElementById("flash")
         e.preventDefault()
@@ -16,7 +16,7 @@ const DriverForm = ({ createDriver, history, drivers }) => {
             last_name: lName
         }
 
-        if(fName !== undefined && lName !== undefined){
+        if (fName !== undefined && lName !== undefined) {
             flashing.className = "updated"
             setFlash(`${fName}, ${lName} Created!`)
             createDriver(newDriver)
@@ -28,7 +28,11 @@ const DriverForm = ({ createDriver, history, drivers }) => {
             setFname(undefined)
         }
     }
-
+    let redirect = () => {
+        if (!isLoggedIn) {
+            <>{history.push("/login")}</>
+        }
+    }
     return (
         <div>
             <h1>Create Driver</h1>
@@ -39,6 +43,7 @@ const DriverForm = ({ createDriver, history, drivers }) => {
             </form>
             <div id="flash">{flash}</div>
             <div id="fail">{error}</div>
+            {redirect()}
         </div>
     )
 }
