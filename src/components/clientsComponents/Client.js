@@ -33,15 +33,34 @@ const Client = ({ client, punches, month }) => {
                 - (Number(parseInt(clockIns()[i].clock_in)))
             ))
         }
-        const uniqueTime = [...new Map(time.map(cIn => [cIn.id, cIn])).values()]
-        return uniqueTime
+        let listOfMinutes = []
+        for (let i = 0; i < (time.length); i++) {
+            listOfMinutes.push(time[i])
+        }
+        // let uniqueTime = [...new Map(time.map(cIn => [cIn.id, cIn])).values()]
+        // console.log("unique Time ", uniqueTime)
+        // console.log("Test Time ", test)
+        return listOfMinutes
+    }
+    function displayAllMinutes() {
+        let showAllMinutes = 0;
+        for (let minutes of totalMinutes()) {
+            showAllMinutes = minutes + showAllMinutes
+        }
+        let hours = Math.floor(showAllMinutes / 60);
+        let minutes = showAllMinutes % 60;
+        if (minutes < 10) minutes = (`0${minutes}`)
+        if (hours < 12) hours = (`${hours}`)
+        return hours + ":" + minutes
     }
     // Some punch objects are missing
     function setPayment(pay, hr) {
         return pay * (hr / 5.00)
     }
-    let time_convert = num => {
-        console.log("number of minutes",num)
+    let time_convert = (num, newNumb = []) => {
+        // needed to remove duplicates
+        for (let i = 0; i < num.length / 2; i++) newNumb.push(num[i])
+
         function isWeekday(year, month, day) {
             let thisday = new Date(year, month, day).getDay();
             return thisday !== 0 && thisday !== 6;
@@ -62,10 +81,10 @@ const Client = ({ client, punches, month }) => {
         let workDays = getWeekdaysInMonth(month, year)
         let extraMinutes = 0
         let allMinutes = 0
-        if (num[1] !== "") {
-            for (let ele of num) if (ele !== undefined) allMinutes += ele
+        if (newNumb[1] !== "") {
+            for (let ele of newNumb) if (ele !== undefined) allMinutes += ele
         } else {
-            allMinutes = num
+            allMinutes = newNumb
         }
         // if(allMinutes > 300) {
         //     extraMinutes = allMinutes - 300
@@ -80,9 +99,6 @@ const Client = ({ client, punches, month }) => {
         //     allMinutes = 60 * 40
         // }
         let hours = Math.floor(allMinutes / 60);
-        let minutes = allMinutes % 60;
-        // display time and the payment
-        // if month matches the time client clocked in display those clockins 
         return (
             setPayment(client.pay_rate, hours)
         )
@@ -93,7 +109,7 @@ const Client = ({ client, punches, month }) => {
         <>
             <td><Link to={`/clients/${client.id}`}>{client.full_name}</Link> </td>
             <td>${client.pay_rate}</td>
-            <td>{totalMinutes()}</td>
+            <td>{displayAllMinutes()}</td>
             <td>{"$" + time_convert(totalMinutes())}</td>
         </>
     )
