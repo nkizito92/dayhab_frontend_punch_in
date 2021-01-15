@@ -1,10 +1,10 @@
 import Drivers from '../components/driversComponents/Drivers'
 
-const DriverContainer = ({drivers}) => {
+const DriverContainer = ({drivers, isLoggedInNow}) => {
 
     return (
         <div> 
-            <Drivers drivers={drivers}/>
+            <Drivers drivers={drivers} isLoggedIn={isLoggedInNow} />
         </div>
     )
 }

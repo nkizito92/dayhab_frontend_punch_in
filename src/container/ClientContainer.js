@@ -4,7 +4,7 @@ class ClientContainer extends React.Component {
     render () {
     return (
         <div>
-            <Clients clients={this.props.clients} punches={this.props.punches}/>
+            <Clients clients={this.props.clients} punches={this.props.punches} isLoggedIn={this.props.isloggedInNow}/>
         </div>
     )
 }
