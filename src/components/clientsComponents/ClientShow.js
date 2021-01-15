@@ -4,7 +4,19 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
     // change the date to pull up specific dates punches 
     // display total hours for the month
     const client = clients.find(client => client.id === match)
-    let displayEditClient =() =>{
+
+    function displayLocalTime(mins) {
+        let localTime = 0
+        let hours = Number(parseInt(mins.split("").slice(0, 2).join("")))
+        let minutes = Number(parseInt(mins.split("").slice(2, 4).join("")))
+        if (minutes < 10) minutes = (`0${minutes}`)
+        if (hours > 12) {
+            localTime = (hours - 12) + ":" + minutes + " PM"
+        }
+        else { localTime = hours + ":" + minutes + " AM" }
+        return localTime
+    }
+    let displayEditClient = () => {
         if (isLoggedIn) {
             return (
                 <div>
@@ -22,18 +34,18 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
                     return (
                         <div key={punch.id}>
                             <h2>{punch.date}</h2>
-                            {punch.clock_in} clockIn
+                            {punch.month_day} Clocked In {displayLocalTime(punch.clock_in)}
                         </div>
                     )
                 } else {
                     return (
-                        <div key={punch.id}>{punch.clock_out} clockOut</div>
+                        <div key={punch.id}> {punch.month_day} Clocked Out {displayLocalTime(punch.clock_out)}</div>
                     )
                 }
             })
         }
     }
-   
+
     let displayClient = () => {
         if (client !== undefined) {
             return (
