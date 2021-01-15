@@ -75,7 +75,7 @@ class App extends Component {
           <Route exact path="/login" component={({ history }) => <Login handleLogin={this.handleLogin} history={history} isLoggedInNow={this.state.isLoggedIn} />} />
           <Route exact path="/logout" component={({ history }) => <Logout handleLogout={this.handleLogout} history={history} user={this.state.user} />} />
           <Route exact path="/signup" component={({ history }) => <Signup isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} history={history} />} />
-          <Route exact path="/clockin" component={() => <ClockContainer punches={this.props.punches} clients={this.props.clients} />} />
+          <Route exact path="/clockin" component={({history}) => <ClockContainer isLoggedIn={this.state.isLoggedIn} punches={this.props.punches} clients={this.props.clients} history={history} />} />
           <Route exact path="/punches/:id/edit" component={({ history, match }) => <ClockEdit punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
           <Route exact path="/clients" component={() => <ClientContainer clients={this.props.clients} punches={this.props.punches} isLoggedInNow={this.state.isLoggedIn} />} />
           <Route exact path="/clients/new" component={({ history }) => <ClientForm drivers={this.props.drivers} clients={this.props.clients} history={history} isLoggedIn={this.state.isLoggedIn}/>} />
