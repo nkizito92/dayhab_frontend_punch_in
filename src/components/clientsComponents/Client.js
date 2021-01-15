@@ -2,16 +2,11 @@ import { Link } from "react-router-dom"
 const Client = ({ client, punches, month }) => {
     let time = []
     let theseClientPunches = punches.filter(punch => punch.client_id === client.id)
-    console.log("These Client punches", theseClientPunches)
+    
     let clockOuts = (clockingOut = []) => {
         for (let i = 0; i < theseClientPunches.length; i++) {
             if (i % 2 !== 0 && theseClientPunches[i].date === month) clockingOut.push(theseClientPunches[i])
         }
-        // for (let i of theseClientPunches) {
-        //     console.log(i)
-        //     if (i.id % 2 !== 0 && i.date === month) clockingOut.push(i)
-        // }
-        console.log("clockingOUts", clockingOut)
         const unique = [...new Map(clockingOut.map(cOut => [cOut.id, cOut])).values()]
         return unique
     }
@@ -38,8 +33,6 @@ const Client = ({ client, punches, month }) => {
             listOfMinutes.push(time[i])
         }
         // let uniqueTime = [...new Map(time.map(cIn => [cIn.id, cIn])).values()]
-        // console.log("unique Time ", uniqueTime)
-        // console.log("Test Time ", test)
         return listOfMinutes
     }
     function displayAllMinutes() {
@@ -55,31 +48,30 @@ const Client = ({ client, punches, month }) => {
     }
     // Some punch objects are missing
     function setPayment(pay, hr) {
-        return pay * (hr / 5.00)
+        return (pay * (hr / 5.00)).toFixed(2)
     }
     let time_convert = (num, newNumb = []) => {
-        // needed to remove duplicates
         for (let i = 0; i < num.length / 2; i++) newNumb.push(num[i])
 
-        function isWeekday(year, month, day) {
-            let thisday = new Date(year, month, day).getDay();
-            return thisday !== 0 && thisday !== 6;
-        }
+        // function isWeekday(year, month, day) {
+        //     let thisday = new Date(year, month, day).getDay();
+        //     return thisday !== 0 && thisday !== 6;
+        // }
 
-        function getWeekdaysInMonth(month, year) {
-            let weekdays = 0;
-            for (var i = 0; i < daysRightNow; i++) {
-                if (isWeekday(year, month, i + 1)) weekdays++;
-            }
-            return weekdays;
-        }
-        let d = new Date()
-        let year = d.getFullYear()
-        let month = d.getMonth()
-        let time = new Date(year, month, 0)
-        let daysRightNow = time.getDate()
-        let workDays = getWeekdaysInMonth(month, year)
-        let extraMinutes = 0
+        // function getWeekdaysInMonth(month, year) {
+        //     let weekdays = 0;
+        //     for (var i = 0; i < daysRightNow; i++) {
+        //         if (isWeekday(year, month, i + 1)) weekdays++;
+        //     }
+        //     return weekdays;
+        // }
+        // let d = new Date()
+        // let year = d.getFullYear()
+        // let month = d.getMonth()
+        // let time = new Date(year, month, 0)
+        // let daysRightNow = time.getDate()
+        // let workDays = getWeekdaysInMonth(month, year)
+        // let extraMinutes = 0
         let allMinutes = 0
         if (newNumb[1] !== "") {
             for (let ele of newNumb) if (ele !== undefined) allMinutes += ele
