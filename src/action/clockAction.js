@@ -2,11 +2,11 @@ import { onlineUrl } from './urlLink'
 import axios from 'axios'
 export const fetchPunches = () => {
     return (dispatch) => {
-        dispatch({type: 'LOADING_PUNCHES'})
+        dispatch({ type: 'LOADING_PUNCHES' })
         fetch(`${onlineUrl()}/punches`).then(res => {
             return res.json()
         }).then(punch => {
-            dispatch({ type: 'ADD_PUNCHES', punches: punch})
+            dispatch({ type: 'ADD_PUNCHES', punches: punch })
         })
     }
 
@@ -40,15 +40,24 @@ export const createPunch = punched => {
 }
 
 export const deletePunch = punch => {
-    return (dispatch) => {
-        axios.delete(`${onlineUrl()}/punches/${punch.id}`,{punch})
-        .then(res => dispatch({type: "DELETE_PUNCH", punch: res.data}))
+    function deleteRequest(obj_id, dispatch) {
+        axios.delete(`${onlineUrl()}/punches/${obj_id}`, { punch })
+            .then(res => dispatch({ type: "DELETE_PUNCH", punch: res.data }))
     }
+    return (dispatch) => {
+        if (punch.clock_in !== null) {
+            deleteRequest((punch.id + 1), dispatch)
+            deleteRequest(punch.id, dispatch)
+        } else {
+            deleteRequest(punch.id, dispatch)
+        }
+    }
+
 }
 
 export const updatePunch = punch => {
     return (dispatch) => {
-        axios.patch(`${onlineUrl()}/punches/${punch.id}`,{punch})
-        .then(res => dispatch({type: "EDIT_PUNCH", punch: res.data}))
+        axios.patch(`${onlineUrl()}/punches/${punch.id}`, { punch })
+            .then(res => dispatch({ type: "EDIT_PUNCH", punch: res.data }))
     }
 }
