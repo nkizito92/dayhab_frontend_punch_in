@@ -9,34 +9,6 @@ class ClockIn extends Component {
         update: ""
     }
 
-    // clientsData() {
-    //     // find client and his punches first 
-    //     let punch_ins = this.props.punchIn.map(punched => {
-    //         if (punched !== undefined) {
-    //             if (punched.clock_in) {
-    //                 return (
-    //                     <div>
-    //                         {punched.client.full_name} {punched.clock_in} clock in
-    //                     </div>
-    //                 )
-    //             } else if (punched.clock_out) {
-    //                 return (
-    //                     <div>{punched.client.full_name} {punched.clock_out} clock out</div>
-    //                 )
-    //             }
-
-    //         } else {
-    //             return (
-    //                 <div>Loading...</div>
-    //             )
-    //         }
-    //     })
-    //     return (
-    //         <div>
-    //             {punch_ins}
-    //         </div>
-    //     )
-    // }
     handlePunch = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -47,7 +19,6 @@ class ClockIn extends Component {
         let newPunch = {
             full_name: this.state.full_name,
         }
-        // if clock_in already today then clock_out
 
         let flashUpdate = ""
 
@@ -59,6 +30,9 @@ class ClockIn extends Component {
     
             if (clients_punches % 2 === 0) {
                 flashUpdate = "Clock Out"
+                setTimeout(() => {
+                    this.props.history.push("/clients")
+                }, 3000);
             } else {
                 flashUpdate = "Clock In"
                 
@@ -79,12 +53,15 @@ class ClockIn extends Component {
             })
         }
     }
+     redirect ()  {
+        if (!this.props.isLoggedIn) {
+            <>{this.props.history.push("/login")}</>
+        } 
+    }
 
     render() {
         return (
             <div>
-
-                {/* {this.clientsData()} */}
                 <form onSubmit={e => this.handleSubmit(e)}>
                     <h3>PunchMachine</h3>
                     <input name="full_name" type="text" onChange={e => this.handlePunch(e)} value={this.state.full_name} />
@@ -92,6 +69,7 @@ class ClockIn extends Component {
                 </form>
                 <div id="success">{this.state.update}</div>
                 <div id="fail">{this.state.error}</div>
+                {this.redirect()}
             </div>
         )
     }
