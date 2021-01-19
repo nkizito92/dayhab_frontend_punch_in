@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Client from './Client'
+import {Link} from 'react-router-dom'
 class Clients extends Component {
     state = {
         month: "January"
@@ -7,9 +8,16 @@ class Clients extends Component {
 
     display(thesePunches) {
         if (thesePunches !== undefined && this.props !== undefined) {
+            let usersClients = this.props.clients.filter(client => client.driver.user_id === this.props.current_user) 
+            if(!this.props.current_user){
             return this.props.clients.map(client => {
                 return <tr key={`key${client.id}`}><Client key={`key${client.id}`} client={client} punches={thesePunches} month={this.state.month} /></tr>
-            })
+            })}
+            else {
+                return usersClients.map(client => {
+                    return <tr key={`key${client.id}`}><Client key={`key${client.id}`} client={client} punches={thesePunches} month={this.state.month} /></tr>
+                })
+            }
         } else {
             return <div className="loading"></div>
         }
@@ -36,6 +44,16 @@ class Clients extends Component {
         this.setState({
             month: ""
         })
+    }
+
+    displayLink () {
+        if (this.props.isLoggedIn) {
+            return (
+                <div>
+                    <Link to="/clockin">Go To PunchMachine</Link>
+                </div>
+            )
+        }
     }
 
     render() {
@@ -72,6 +90,8 @@ class Clients extends Component {
                         {this.display(this.clientsOftheMonth(this.state.month))}
                     </tbody>
                 </table>
+                
+                {this.displayLink()}
             </div>
         )
     }
