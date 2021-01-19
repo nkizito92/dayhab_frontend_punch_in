@@ -75,16 +75,16 @@ class App extends Component {
           <Route exact path="/login" component={({ history }) => <Login handleLogin={this.handleLogin} history={history} isLoggedInNow={this.state.isLoggedIn} />} />
           <Route exact path="/logout" component={({ history }) => <Logout handleLogout={this.handleLogout} history={history} user={this.state.user} />} />
           <Route exact path="/signup" component={({ history }) => <Signup isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} history={history} />} />
-          <Route exact path="/clockin" component={({history}) => <ClockContainer isLoggedIn={this.state.isLoggedIn} punches={this.props.punches} clients={this.props.clients} history={history} />} />
-          <Route exact path="/punches/:id/edit" component={({ history, match }) => <ClockEdit punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
-          <Route exact path="/clients" component={() => <ClientContainer clients={this.props.clients} punches={this.props.punches} isLoggedInNow={this.state.isLoggedIn} />} />
-          <Route exact path="/clients/new" component={({ history }) => <ClientForm drivers={this.props.drivers} clients={this.props.clients} history={history} isLoggedIn={this.state.isLoggedIn}/>} />
-          <Route exact path="/clients/:id" component={({ match, history }) => <ClientShow isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} />} />
-          <Route exact path="/clients/:id/edit" component={({ match, history }) => <ClientEdit isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} drivers={this.props.drivers} />} />
-          <Route exact path="/drivers" component={() => <DriverContainer drivers={this.props.drivers} isLoggedInNow={this.state.isLoggedIn} />} />     
-          <Route exact path="/drivers/new" component={({ history }) => <DriverForm history={history} drivers={this.props.drivers} isLoggedIn={this.state.isLoggedIn}/>} />
-          <Route exact path="/drivers/:id" component={({ match, history }) => <DriverShow drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))}  isLoggedInNow={this.state.isLoggedIn}/>} />
-          <Route exact path="/drivers/:id/edit" component={({ match, history }) => <DriverEdit drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
+          <Route exact path="/clockin" component={({history}) => <ClockContainer current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} punches={this.props.punches} clients={this.props.clients} history={history} />} />
+          <Route exact path="/punches/:id/edit" component={({ history, match }) => <ClockEdit current_user={this.state.user.id} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
+          <Route exact path="/clients" component={() => <ClientContainer current_user={this.state.user.id}  clients={this.props.clients} punches={this.props.punches} isLoggedIn={this.state.isLoggedIn} />} />
+          <Route exact path="/clients/new" component={({ history }) => <ClientForm current_user={this.state.user.id} drivers={this.props.drivers} clients={this.props.clients} history={history} isLoggedIn={this.state.isLoggedIn}/>} />
+          <Route exact path="/clients/:id" component={({ match, history }) => <ClientShow current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} />} />
+          <Route exact path="/clients/:id/edit" component={({ match, history }) => <ClientEdit current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} drivers={this.props.drivers} />} />
+          <Route exact path="/drivers" component={() => <DriverContainer current_user={this.state.user.id} drivers={this.props.drivers} isLoggedInNow={this.state.isLoggedIn} />} />     
+          <Route exact path="/drivers/new" component={({ history }) => <DriverForm current_user={this.state.user.id} history={history} drivers={this.props.drivers} isLoggedIn={this.state.isLoggedIn}/>} />
+          <Route exact path="/drivers/:id" component={({ match, history }) => <DriverShow current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))}  isLoggedInNow={this.state.isLoggedIn}/>} />
+          <Route exact path="/drivers/:id/edit" component={({ match, history }) => <DriverEdit current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
         </Switch>
       </div>
     )
