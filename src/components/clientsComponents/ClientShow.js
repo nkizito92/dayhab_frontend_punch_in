@@ -4,16 +4,21 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
     // change the date to pull up specific dates punches 
     // display total hours for the month
     const client = clients.find(client => client.id === match)
-
     function displayLocalTime(mins) {
         let localTime = 0
         let hours = Number(parseInt(mins.split("").slice(0, 2).join("")))
         let minutes = Number(parseInt(mins.split("").slice(2, 4).join("")))
         if (minutes < 10) minutes = (`0${minutes}`)
-        if (hours > 12) {
-            localTime = (hours - 12) + ":" + minutes + " PM"
+        
+        if (hours >= 12 && hours < 24) {
+            if (hours > 12) hours = hours - 12
+            localTime = `${hours}:${minutes} PM`
         }
-        else { localTime = hours + ":" + minutes + " AM" }
+        else if (hours < 13 || hours === 24) {
+            if (hours === 24) hours = hours - 12
+            localTime = `${hours}:${minutes} AM`
+        }
+        
         return localTime
     }
     let displayEditClient = () => {
