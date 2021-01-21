@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import React, { useState } from "react"
 import { updatePunch, deletePunch } from "../../action/clockAction"
 import { Link} from 'react-router-dom'
-const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePunch }) => {
+const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePunch, current_user }) => {
     let punch = punches.find(punch => punch.id === match)
     const [clockIn, setClIn] = useState()
     const [clockOut, setClOut] = useState()
