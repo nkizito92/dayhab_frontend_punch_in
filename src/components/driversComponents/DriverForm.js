@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { createDriver } from '../../action/driverAction'
 import React, { useState } from 'react'
 
-const DriverForm = ({ createDriver, history, isLoggedIn }) => {
+const DriverForm = ({ createDriver, history, isLoggedIn, current_user }) => {
     const [fName, setFname] = useState();
     const [lName, setLname] = useState();
     const [flash, setFlash] = useState();
@@ -13,7 +13,8 @@ const DriverForm = ({ createDriver, history, isLoggedIn }) => {
         e.preventDefault()
         let newDriver = {
             first_name: fName,
-            last_name: lName
+            last_name: lName,
+            user_id: current_user
         }
 
         if (fName !== undefined && lName !== undefined) {
