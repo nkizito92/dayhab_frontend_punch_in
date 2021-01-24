@@ -25,9 +25,9 @@ nav {
 
 
 @keyframes load {
-    0%{content: "Loading..";}
-    50%{content: "Loading...";}
-    100%{content: "Loading....";}
+    0%{content: "Loading.";}
+    50%{content: "Loading..";}
+    100%{content: "Loading...";}
 }
 .error {
     background-color: #ff9e9e;
