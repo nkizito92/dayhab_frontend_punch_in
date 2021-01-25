@@ -73,7 +73,8 @@ const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePun
             clock_in: punch.clock_in,
             clock_out: punch.clock_out
         }
-        deletePunch(deletingPunch)
+        let clientsPunchs = punches.filter(punched => punched.client.full_name === punch.client.full_name)
+        deletePunch(clientsPunchs, deletingPunch)
         setTimeout(() => history.push("/clients/" + punch.client_id), 2300)
     }
     let redirect = () => {
