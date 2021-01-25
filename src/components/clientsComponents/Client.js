@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 const Client = ({ client, punches, month }) => {
     let time = []
     let theseClientPunches = punches.filter(punch => punch.client_id === client.id)
-    
+
     let clockOuts = (clockingOut = []) => {
         for (let i = 0; i < theseClientPunches.length; i++) {
             if (i % 2 !== 0 && theseClientPunches[i].date === month) clockingOut.push(theseClientPunches[i])
@@ -21,19 +21,27 @@ const Client = ({ client, punches, month }) => {
         const unique = [...new Map(clockingIn.map(cIn => [cIn.id, cIn])).values()]
         return unique
     }
+
+    let convertHoursToMinutes = times => {
+        let hours = []
+        let minutes = []
+        let calculatingMinutes
+        for (let i = 0; i < clockOuts().length; i++) {
+            hours.push(Number(parseInt(times.split("").slice(0, 2).join(""))))
+            minutes.push(Number(parseInt(times.split("").slice(2, 4).join(""))))
+            calculatingMinutes = (hours[i] * 60) + minutes[i]
+        }
+        return calculatingMinutes
+    }
     let totalMinutes = () => {
         for (let i = 0; i < clockOuts().length; i++) {
-            time.push((
-                (Number(parseInt(clockOuts()[i].clock_out)))
-                - (Number(parseInt(clockIns()[i].clock_in)))
-            ))
-        }
-        let listOfMinutes = []
-        for (let i = 0; i < (time.length); i++) {
-            listOfMinutes.push(time[i])
+            time.push(
+                (convertHoursToMinutes(clockOuts()[i].clock_out))
+                - (convertHoursToMinutes(clockIns()[i].clock_in))
+            )
         }
         // let uniqueTime = [...new Map(time.map(cIn => [cIn.id, cIn])).values()]
-        return listOfMinutes
+        return time
     }
     function displayAllMinutes() {
         let showAllMinutes = 0;
@@ -43,10 +51,9 @@ const Client = ({ client, punches, month }) => {
         let hours = Math.floor(showAllMinutes / 60);
         let minutes = showAllMinutes % 60;
         if (minutes < 10) minutes = (`0${minutes}`)
-        if (hours < 12) hours = (`${hours}`)
-        return hours + ":" + minutes
+        if (hours < 1) hours = 0
+        return `${hours}:${minutes}`
     }
-    // Some punch objects are missing
     function setPayment(pay, hr) {
         return (pay * (hr / 5.00)).toFixed(2)
     }
