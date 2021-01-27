@@ -40,17 +40,17 @@ export const createPunch = punched => {
 }
 
 export const deletePunch = (punches, deletingPunch) => {
-    function deleteRequest(obj, dispatch) {
-        axios.delete(`${onlineUrl()}/punches/${obj.id}`, { obj })
+    function deleteRequest(obj, obj_id, dispatch) {
+        axios.delete(`${onlineUrl()}/punches/${obj_id}`, { obj })
             .then(res => dispatch({ type: "DELETE_PUNCH", punch: res.data }))
             .catch(error => console.log(error))
     }
     return (dispatch) => {
         if (deletingPunch.clock_in !== null && punches[1]) {
-            deleteRequest((punches[1]), dispatch)
-            deleteRequest(punches[0], dispatch)
+            deleteRequest(deletingPunch, deletingPunch.id + 1, dispatch)
+            deleteRequest(deletingPunch, deletingPunch.id, dispatch)
         } else {
-            deleteRequest(deletingPunch, dispatch)
+            deleteRequest(deletingPunch, deletingPunch.id, dispatch)
         }
     }
 
