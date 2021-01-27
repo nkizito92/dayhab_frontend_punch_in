@@ -77,7 +77,7 @@ class Clients extends Component {
                         <option>December</option>
                     </select>
                 </form>
-                <table border="1">
+                <table>
                     <thead>
                         <tr>
                             <td>Full name</td>
