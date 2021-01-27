@@ -68,8 +68,9 @@ class App extends Component {
       // make some routes bounces back to clients view if not logged in 
       <div className="App">
         <nav>
-          <Navbar userName={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
+          <Navbar currentUser={this.state.user} isLoggedIn={this.state.isLoggedIn} handleLogout={this.handleLogout} />
         </nav>
+        <main>
         <Switch>
           <Route exact path="/" component={() => <Home isLoggedIn={this.state.isLoggedIn} />} />
           <Route exact path="/login" component={({ history }) => <Login handleLogin={this.handleLogin} history={history} isLoggedInNow={this.state.isLoggedIn} />} />
@@ -86,6 +87,8 @@ class App extends Component {
           <Route exact path="/drivers/:id" component={({ match, history }) => <DriverShow current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))}  isLoggedInNow={this.state.isLoggedIn}/>} />
           <Route exact path="/drivers/:id/edit" component={({ match, history }) => <DriverEdit current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
         </Switch>
+        </main>
+        <footer>Copy Rights</footer>
       </div>
     )
   }
