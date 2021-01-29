@@ -73,12 +73,19 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
     function listOfPunches() {
         let findThePunches = punches.filter(punch => punch.client_id === client.id)
         return findThePunches.map(punch => {
+            if(punch.clock_in){
             return (
-
                 <option key={punch.id} id={"key" + punch.id}>
-                    Clocked In: {displayLocalTime(punch.clock_in)} Clocked Out: {displayLocalTime(punch.clock_out)}
+                    Clocked In: {displayLocalTime(punch.clock_in)} On {punch.month_day}
                 </option>
             )
+        } else {
+            return (
+                <option key={punch.id} id={"key" + punch.id}>
+                    Clocked Out: {displayLocalTime(punch.clock_out)} On {punch.month_day}
+                </option>
+            )
+        }
         })
     }
 
