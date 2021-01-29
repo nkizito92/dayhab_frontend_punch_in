@@ -29,7 +29,7 @@ const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePun
             if (punch.clock_in) {
                 return (
                     <>
-                        <label>Clock In Time Was {displayLocalTime(clockInHours)}</label> <br />
+                        <label>Clock In Time Was {displayLocalTime(clockInHours)} On {punch.month_day}</label> <br />
                         <input type="time" name="clock_in" onChange={e => setClIn(e.target.value)} /> <br />
                     </>
                 )
