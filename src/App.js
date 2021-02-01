@@ -20,6 +20,7 @@ import Navbar from './headers/Navbar'
 import { fetchPunches } from './action/clockAction'
 import { fetchClients } from './action/clientAction'
 import { fetchDrivers } from './action/driverAction'
+import { fetchUsers } from './action/adminAction'
 import { connect } from 'react-redux'
 import './css/style.css'
 import './App.css';
@@ -28,13 +29,15 @@ class App extends Component {
 
   state = {
     isLoggedIn: false,
-    user: {}
+    user: {},
+    error: ""
   }
 
   componentDidMount() {
     this.props.fetchPunches()
     this.props.fetchClients()
     this.props.fetchDrivers()
+    this.props.fetchUsers()
     this.loginStatus()
   }
 
@@ -47,7 +50,8 @@ class App extends Component {
           this.handleLogout()
         }
       })
-      .catch(error => console.log('api errors:', error))
+      .catch(error =>{ 
+        console.log('api errors:', error)})
   }
 
   handleLogin = (data) => {
@@ -56,6 +60,23 @@ class App extends Component {
       user: data.user
     })
   }
+
+  errorMessage = (error) => {
+    this.setState({
+      error: error
+    })
+  }
+errorDisplayMessage = () => {
+  if(this.state.error !== ""){
+    let error = document.getElementById("message")
+    let message = document.createElement('div')
+    message.className = "error"
+    message.innerHTML = this.state.error
+    error.appendChild(message)
+    setTimeout(() => error.removeChild(message), 2300)
+  } 
+}
+  
   handleLogout = () => {
     this.setState({
       isLoggedIn: false,
@@ -73,7 +94,7 @@ class App extends Component {
         <main>
         <Switch>
           <Route exact path="/" component={() => <Home isLoggedIn={this.state.isLoggedIn} />} />
-          <Route exact path="/login" component={({ history }) => <Login handleLogin={this.handleLogin} history={history} isLoggedInNow={this.state.isLoggedIn} />} />
+          <Route exact path="/login" component={({ history }) => <Login handleLogin={this.handleLogin} errorMessage={this.errorMessage} displayMessage={this.state.error} history={history} isLoggedInNow={this.state.isLoggedIn} users={this.props.users}/>} />
           <Route exact path="/logout" component={({ history }) => <Logout handleLogout={this.handleLogout} history={history} user={this.state.user} />} />
           <Route exact path="/signup" component={({ history }) => <Signup isLoggedIn={this.state.isLoggedIn} handleLogin={this.handleLogin} history={history} />} />
           <Route exact path="/clockin" component={({history}) => <ClockContainer current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} punches={this.props.punches} clients={this.props.clients} history={history} />} />
@@ -87,6 +108,7 @@ class App extends Component {
           <Route exact path="/drivers/:id" component={({ match, history }) => <DriverShow current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))}  isLoggedInNow={this.state.isLoggedIn}/>} />
           <Route exact path="/drivers/:id/edit" component={({ match, history }) => <DriverEdit current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn}/>} />
         </Switch>
+        <div id="message">{this.errorDisplayMessage()}</div>
         </main>
         <footer>Copy Rights</footer>
       </div>
@@ -99,8 +121,9 @@ const mapStateToProps = state => {
   return {
     punches: state.clockinsReducer.punches,
     clients: state.clientsReducer.clients,
-    drivers: state.driversReducer.drivers
+    drivers: state.driversReducer.drivers,
+    users: state.usersReducer.users
   }
 }
 
-export default connect(mapStateToProps, { fetchPunches, fetchClients, fetchDrivers })(App)
+export default connect(mapStateToProps, { fetchPunches, fetchClients, fetchDrivers, fetchUsers })(App)
