@@ -1,26 +1,46 @@
 import React, { useState } from 'react'
-import {goLogin} from '../../action/adminAction'
+import { goLogin } from '../../action/adminAction'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
-const Login = ({ handleLogin, history, isLoggedInNow }) => {
+import { Link } from 'react-router-dom'
+const Login = ({ handleLogin, errorMessage, displayMessage, history, isLoggedInNow, users }) => {
     const [username, setUname] = useState()
     const [password, setPass] = useState()
-
+    const [flash, setFlash] = useState()
     let handleSubmit = e => {
+        function createAnElement(message) {
+            let ele = document.createElement('div')
+            ele.className = "error"
+            ele.innerHTML = message
+            let failEle = document.getElementById("fail")
+            failEle.appendChild(ele)
+            setTimeout(() => failEle.removeChild(ele), 2000)
+        }
         e.preventDefault()
         let logging = {
             username: username,
             password: password
         }
-        goLogin(logging, handleLogin, history)
+        let users_nameMatch = users.find(userN => userN.username === username)
+        if (users_nameMatch) {
+            document.querySelector("#success").className = "updated"
+            goLogin(logging, handleLogin, errorMessage)
+            setFlash(`Processing login..`)
+        }  else if(!username && !password) {
+                createAnElement("Please fill all fields")
+        }  else if(!username) {
+            createAnElement("Username wasn't entered")
+        } else if (!password) {
+            createAnElement("Password wasn't entered")
+        } else {
+            createAnElement("No such user exsit try again")
+        }
     }
 
     let redirect = () => {
         if (isLoggedInNow) {
-            <>{setTimeout(() => history.push("/clients"), 2200)}</>
+            <>{history.push("/clients")}</>
         }
     }
-
     return (
         <div>
             <h1>Login</h1>
@@ -37,6 +57,8 @@ const Login = ({ handleLogin, history, isLoggedInNow }) => {
                 </div>
 
             </form>
+            <div id="fail"></div>
+            <div id="success">{flash}</div>
             {redirect()}
         </div>
     )
