@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
-const DriverShow = ({ drivers, history, match, isLoggedInNow }) => {
+const DriverShow = ({ drivers, clients, match, isLoggedInNow }) => {
     let driver = drivers.find(driver => driver.id === match)
     let displayDriver = () => {
         if (driver !== undefined) {
-            let clients = driver.clients.map(client => {
+            let theseClients = clients.filter(client => client.driver_id === driver.id)
+            let driversClients = theseClients.map(client => {
                 return (
                     <div key={client.id}>
                         {client.full_name}
@@ -13,7 +14,8 @@ const DriverShow = ({ drivers, history, match, isLoggedInNow }) => {
             return (
                 <>
                     <h1> {driver.first_name} {driver.last_name}</h1>
-                    <div> {clients}</div>
+                    <h2>Clients:</h2>
+                    <div> {driversClients}</div>
                 </>
             )
 
@@ -37,7 +39,7 @@ const DriverShow = ({ drivers, history, match, isLoggedInNow }) => {
     return (
         <div>
             <div>
-                <h2>Clients:</h2> {displayDriver()}
+                {displayDriver()}
             </div>
             {displayEditLink()}
         </div>
