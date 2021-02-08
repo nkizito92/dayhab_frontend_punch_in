@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { goLogin } from '../../action/adminAction'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-const Login = ({ handleLogin, errorMessage, displayMessage, history, isLoggedInNow, users }) => {
+const Login = ({ handleLogin, statusMessage, history, isLoggedInNow, users }) => {
     const [username, setUname] = useState()
     const [password, setPass] = useState()
     const [flash, setFlash] = useState()
@@ -21,18 +21,18 @@ const Login = ({ handleLogin, errorMessage, displayMessage, history, isLoggedInN
             password: password
         }
         let users_nameMatch = users.find(userN => userN.username === username)
-        if (users_nameMatch) {
+        if (users_nameMatch && password) {
             document.querySelector("#success").className = "updated"
-            goLogin(logging, handleLogin, errorMessage)
+            goLogin(logging, handleLogin, statusMessage)
             setFlash(`Processing login..`)
         }  else if(!username && !password) {
                 createAnElement("Please fill all fields")
         }  else if(!username) {
-            createAnElement("Username wasn't entered")
-        } else if (!password) {
-            createAnElement("Password wasn't entered")
-        } else {
-            createAnElement("No such user exsit try again")
+                createAnElement("Username wasn't entered")
+        }   else if (!password) {
+                createAnElement("Password wasn't entered")
+        }   else {
+                createAnElement("No such user exsit try again")
         }
     }
 
@@ -45,8 +45,8 @@ const Login = ({ handleLogin, errorMessage, displayMessage, history, isLoggedInN
         <div>
             <h1>Login</h1>
             <form onSubmit={e => handleSubmit(e)}>
-                <input placeholder="username" type="text" name="username"
-                    onChange={e => setUname(e.target.value)}
+                <input placeholder="username" type="text" name="username" autoFocus
+                    onChange={e => setUname(e.target.value.toLowerCase())}
                 /> <br />
                 <input placeholder="password" type="password" name="password"
                     onChange={e => setPass(e.target.value)}
