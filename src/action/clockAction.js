@@ -20,21 +20,12 @@ export const addPunch = punched => {
     })
 }
 
-export const createPunch = punched => {
+export const createPunch = (punched, statusMessage) => {
     return (dispatch) => {
-        fetch(`${onlineUrl()}/punches`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ punch: punched })
-        }
-
-        )
-            .then(res => res.json())
-            .then(punchIn => dispatch(addPunch(punchIn)))
-            .catch(error => {
-                console.log(error)
+        axios.post(`${onlineUrl()}/punches`, {punched})
+            .then(res => {
+                dispatch(addPunch(res.data.punched))
+                statusMessage(res.data.message)
             })
     }
 }
