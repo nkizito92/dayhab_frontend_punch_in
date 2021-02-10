@@ -1,12 +1,15 @@
 import Driver from "./Driver"
 import { Link } from "react-router-dom"
 
-const Drivers = ({ drivers, isLoggedIn, current_user }) => {
+const Drivers = ({ drivers, isLoggedIn, current_user, clients }) => {
     let display = () => {
+        if(current_user){
         let usersDrivers = drivers.filter(driver => driver.user_id === current_user) 
         return usersDrivers.map(driver => {
-          return <Driver key={driver.id} driver={driver} />
-        })
+          return <Driver key={driver.id} driver={driver} clients={clients}/>
+        })} else {
+            return <div><Link to="/login">Login</Link> to see Drivers </div>
+        }
     }
     let displayCreateLink = () => {
         if(isLoggedIn){
