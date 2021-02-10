@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 const Client = ({ client, punches, month }) => {
     let time = []
     let theseClientPunches = punches.filter(punch => punch.client_id === client.id)
-
     let clockOuts = (clockingOut = []) => {
         for (let i = 0; i < theseClientPunches.length; i++) {
             if (i % 2 !== 0 && theseClientPunches[i].date === month) clockingOut.push(theseClientPunches[i])
@@ -15,9 +14,6 @@ const Client = ({ client, punches, month }) => {
         for (let i = 0; i < theseClientPunches.length; i++) {
             if (i % 2 === 0 && theseClientPunches[i].date === month) clockingIn.push(theseClientPunches[i])
         }
-        // for (let i of theseClientPunches) {
-        //     if (i.id % 2 === 0 && i.date === month) clockingIn.push(i)
-        // }
         const unique = [...new Map(clockingIn.map(cIn => [cIn.id, cIn])).values()]
         return unique
     }
@@ -26,10 +22,12 @@ const Client = ({ client, punches, month }) => {
         let hours = []
         let minutes = []
         let calculatingMinutes
-        for (let i = 0; i < clockOuts().length; i++) {
-            hours.push(Number(parseInt(times.split("").slice(0, 2).join(""))))
-            minutes.push(Number(parseInt(times.split("").slice(2, 4).join(""))))
-            calculatingMinutes = (hours[i] * 60) + minutes[i]
+        if (times) {
+            for (let i = 0; i < clockOuts().length; i++) {
+                hours.push(Number(parseInt(times.split("").slice(0, 2).join(""))))
+                minutes.push(Number(parseInt(times.split("").slice(2, 4).join(""))))
+                calculatingMinutes = (hours[i] * 60) + minutes[i]
+            }
         }
         return calculatingMinutes
     }
@@ -40,7 +38,6 @@ const Client = ({ client, punches, month }) => {
                 - (convertHoursToMinutes(clockIns()[i].clock_in))
             )
         }
-        // let uniqueTime = [...new Map(time.map(cIn => [cIn.id, cIn])).values()]
         return time
     }
     function displayAllMinutes() {
