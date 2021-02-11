@@ -51,7 +51,7 @@ class Clients extends Component {
         if (this.props.isLoggedIn) {
             return (
                 <div>
-                    <Link to="/clockin">Go To PunchMachine</Link>
+                    <Link to="/clockin">Go To Time Clock</Link>
                 </div>
             )
         }
@@ -62,9 +62,9 @@ class Clients extends Component {
             <div>
                 <h1>Clients</h1>
                 <form onSubmit={e => this.handleSubmit(e)}>
-                    <select onChange={e => this.handleMonth(e)} >
+                    <select onChange={e => this.handleMonth(e)}>
                         <option>January</option>
-                        <option>Feburary</option>
+                        <option>February</option>
                         <option>March</option>
                         <option>April</option>
                         <option>May</option>
@@ -87,7 +87,6 @@ class Clients extends Component {
                         </tr>
                     </thead>
                     <tbody>
-
                         {this.display(this.clientsOftheMonth(this.state.month))}
                     </tbody>
                 </table>
