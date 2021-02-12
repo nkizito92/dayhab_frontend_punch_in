@@ -21,7 +21,7 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
                             {listOfDrivers()}
                         </select> <br />
                         <input name="full_name" placeholder="full name" onChange={e => setfullName(e.target.value)} value={fullName} /> <br />
-                        <input type="number" step="0.01" name="pay_rate" placeholder="pay rate" onChange={e => setPayRate(e.target.value)} value={payRate} /> <br />
+                        <input type="number" min="0" step="0.01" name="pay_rate" placeholder="pay rate" onChange={e => setPayRate(e.target.value)} value={payRate} /> <br />
                         <button type="submit" onClick={handleSubmit} >Update Client</button>
                         <button type="submit" onClick={e => handleDelete(e)}>Delete Client</button>
                     </form>
@@ -124,6 +124,8 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
             driver_id: Number(parseInt(driverId))
         }
         if (current_user === client.driver.user_id) {
+            document.getElementById("success").className = "updated"
+            setFlash("Client Delete!!")
             deleteClient(deletingClient)
             setTimeout(() => history.push("/clients"), 2300)
         }

@@ -21,7 +21,7 @@ const ClientForm = ({ createClient, drivers, history, isLoggedIn }) => {
         e.preventDefault()
         let newClient = {
             full_name: fullname,
-            pay_rate: Number(parseInt(pay_rate)),
+            pay_rate: Number(parseFloat(pay_rate)),
             driver_id: Number(parseInt(driverId))
         }
         if (fullname !== undefined && pay_rate !== undefined && driverId !== undefined) {
@@ -47,11 +47,11 @@ const ClientForm = ({ createClient, drivers, history, isLoggedIn }) => {
         <div><h1>Client Form</h1>
             <form onSubmit={e => handleSubmit(e)}>
                 <input name="full_name" placeholder="fullname" onChange={e => setfullName(e.target.value)} /> <br />
-                <input type="number" name="pay_rate" placeholder="pay_rate" onChange={e => setPay_rate(e.target.value)} /> <br />
+                <input type="number" min="0" step="0.01" name="pay_rate" placeholder="pay_rate" onChange={e => setPay_rate(e.target.value)} /> <br />
                 <select name="driver_id" onChange={e => setDriver(e.currentTarget.selectedOptions[0].id.split("key")[1])}>
                     <option default >Select Driver</option>
                     {listOfDrivers}</select> <br />
-                <input type="submit" onClick={e => handleSubmit(e)} value="Create Client" />
+                <button onClick={e => handleSubmit(e)}>Create Client</button>
             </form>
             <div id="flash">{flash}</div>
             <div id="fail">{error}</div>
