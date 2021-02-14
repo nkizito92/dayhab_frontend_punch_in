@@ -98,15 +98,13 @@ const Client = ({ client, punches, month }) => {
         return (
             setPayment(client.pay_rate, hours)
         )
-
     }
-
     return (
         <>
             <td><Link to={`/clients/${client.id}`}>{client.full_name}</Link> </td>
             <td>${client.pay_rate}</td>
             <td>{displayAllMinutes()}</td>
-            <td>{"$" + time_convert(totalMinutes())}</td>
+            <td>${time_convert(totalMinutes())}</td>
         </>
     )
 }
