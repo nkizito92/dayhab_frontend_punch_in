@@ -53,11 +53,7 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
                         )
                     }
                 } else {
-                    return ( 
-                        <div>
-                            Select a Month to see Time marks.
-                        </div>
-                    )
+                    return null
                 }
             })
         }
