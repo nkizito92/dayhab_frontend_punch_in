@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import Client from './Client'
 import { Link } from 'react-router-dom'
 class Clients extends Component {
+    componentDidMount() {
+        this.setState({
+            month: new Date().toLocaleDateString('default', { month: 'long' })
+        })
+    }
     state = {
-        month: "January"
+        month: ""
     }
 
     display(thesePunches) {
@@ -40,13 +45,6 @@ class Clients extends Component {
         })
     }
 
-    handleSubmit(e) {
-        e.preventDefault()
-        this.setState({
-            month: ""
-        })
-    }
-
     displayLink() {
         if (this.props.isLoggedIn) {
             return (
@@ -61,22 +59,21 @@ class Clients extends Component {
         return (
             <div>
                 <h1>Clients</h1>
-                <form onSubmit={e => this.handleSubmit(e)}>
-                    <select onChange={e => this.handleMonth(e)}>
-                        <option>January</option>
-                        <option>February</option>
-                        <option>March</option>
-                        <option>April</option>
-                        <option>May</option>
-                        <option>June</option>
-                        <option>July</option>
-                        <option>August</option>
-                        <option>September</option>
-                        <option>October</option>
-                        <option>November</option>
-                        <option>December</option>
-                    </select>
-                </form>
+                <select onChange={e => this.handleMonth(e)}>
+                    <option hidden>{this.state.month}</option>
+                    <option>January</option>
+                    <option>February</option>
+                    <option>March</option>
+                    <option>April</option>
+                    <option>May</option>
+                    <option>June</option>
+                    <option>July</option>
+                    <option>August</option>
+                    <option>September</option>
+                    <option>October</option>
+                    <option>November</option>
+                    <option>December</option>
+                </select>
                 <table>
                     <thead>
                         <tr>
@@ -91,8 +88,8 @@ class Clients extends Component {
                     </tbody>
                 </table>
 
-                {this.displayLink()}
-            </div>
+                { this.displayLink()}
+            </div >
         )
     }
 }
