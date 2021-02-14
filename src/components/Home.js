@@ -3,7 +3,7 @@ const Home = ( {isLoggedIn}) => {
     let displayLinks = () => {
         if (isLoggedIn) {
             return (
-                <Link to="/clockin">Go To PunchMachine</Link>
+                <Link to="/clockin">Go To Time Clock</Link>
             )
         } else {
             return (
