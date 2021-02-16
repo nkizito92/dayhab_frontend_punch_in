@@ -1,10 +1,17 @@
-html, body {
+html {
     height: 100%;
 }
 nav {
     width: 100%;
     background-color: #0084ff;
     padding: 10px 0;
+}
+nav a:hover {
+    text-decoration: underline!important;
+}
+
+nav a:active {
+    background-color: maroon;
 }
 .clock {
     margin: 0 auto;
@@ -20,7 +27,9 @@ nav {
 }
 body {
     background-image: url(../images/hand-prints.jpg);
+    background-attachment: fixed;
     margin: 0 auto;
+    height: 100%;
 }
  h1 {
      margin: 0 auto;
@@ -30,7 +39,8 @@ main {
     margin: 0 auto;
     overflow: auto;
     width: 800px;
-    height: 100%;
+    min-height: 81.1%;
+    /* height: 100%; */
     background-color: #f8f8f8;
     min-width: 400px;
     padding: 0 10px;
@@ -122,6 +132,11 @@ input {
 }
 
 select {
+    background: #004680;
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: white;
     width: 40%;
 }
 
