@@ -25,6 +25,7 @@ const clockinsReducer = (state = {punches: [], loading: false}, action) => {
                         punch.clock_in = action.punch.clock_in
                         punch.clock_out = action.punch.clock_out
                         punch.date = action.punch.date
+                        punch.month_day = action.punch.month_day
                     }
                     return punch
                 })
