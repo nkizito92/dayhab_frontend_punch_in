@@ -4,8 +4,8 @@ const Logout = ({handleLogout, history, user}) => {
         history.push("/clients")         
     }, 2300)
     return (
-        <div>
-            <h1> {user.username} is Logging Out</h1>
+        <div className="updated">
+             {user.username} is Logging Out
         </div>
     )
 }
