@@ -37,10 +37,11 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
     }
     let totalMinutes = () => {
         for (let i = 0; i < clockOuts().length; i++) {
-            time.push(
-                (convertHoursToMinutes(clockOuts()[i].clock_out))
-                - (convertHoursToMinutes(clockIns()[i].clock_in))
-            )
+            if (clockOuts().length === clockIns().length)
+                time.push(
+                    (convertHoursToMinutes(clockOuts()[i].clock_out))
+                    - (convertHoursToMinutes(clockIns()[i].clock_in))
+                )
         }
         return time
     }
@@ -72,7 +73,7 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
         )
     }
 
-//  displayLocal Time
+    //  displayLocal Time
     function displayLocalTime(mins) {
         let localTime = 0
         let hours = Number(parseInt(mins.split("").slice(0, 2).join("")))
@@ -129,7 +130,7 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
     let displayClient = () => {
         if (client !== undefined) {
             return (
-                <>
+                <div className="profile">
                     <h1> {client.full_name} </h1>
                     <h2>Driver: {client.driver.first_name} {client.driver.last_name}</h2>
                     <h2>PayRate: ${client.pay_rate}</h2>
@@ -138,7 +139,7 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
                     <div>
                         <Link to="/clients">Go Back</Link>
                     </div>
-                </>
+                </div>
             )
         } else {
             return <div className="loading"></div>

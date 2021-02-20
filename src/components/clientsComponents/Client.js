@@ -33,10 +33,12 @@ const Client = ({ client, punches, month }) => {
     }
     let totalMinutes = () => {
         for (let i = 0; i < clockOuts().length; i++) {
-            time.push(
-                (convertHoursToMinutes(clockOuts()[i].clock_out))
-                - (convertHoursToMinutes(clockIns()[i].clock_in))
-            )
+            if (clockIns().length === clockOuts().length) {
+                time.push(
+                    (convertHoursToMinutes(clockOuts()[i].clock_out))
+                    - (convertHoursToMinutes(clockIns()[i].clock_in))
+                )
+            }
         }
         return time
     }
