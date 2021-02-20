@@ -7,17 +7,31 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
     const client = clients.find(client => client.id === match)
     const [fullName, setfullName] = useState(client.full_name)
     const [payRate, setPayRate] = useState(client.pay_rate)
-    const [driverId, setDriver] = useState()
+    const [driverId, setDriver] = useState(client.driver_id)
     const [flash, setFlash] = useState()
     const [error, setError] = useState()
+
+    let displayPunchForms = () => {
+        if (listOfPunches()[1]) {
+            return (
+                <select name="id" onChange={e => createPunchForm(e)}>
+                    <option default >Select Punch</option>
+                    {listOfPunches()}</select>
+            )
+        }
+        else {
+            return <h3>There's No Punches!</h3>
+        }
+    }
     let displayClientForm = () => {
         if (client !== undefined) {
             return (
                 <>
                     <h1>Edit {client.full_name}</h1>
                     <form onSubmit={e => handleSubmit(e)}>
+                        <h2>Client's Driver is {client.driver.first_name} {client.driver.last_name}</h2>
                         <select name="driver_id" onChange={e => setDriver(e.currentTarget.selectedOptions[0].id.split("key")[1])}>
-                            <option default >Select Driver</option>
+                            <option default hidden >{client.driver.first_name} {client.driver.last_name}</option>
                             {listOfDrivers()}
                         </select> <br />
                         <input name="full_name" placeholder="full name" onChange={e => setfullName(e.target.value)} value={fullName} /> <br />
@@ -28,9 +42,7 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
                     <br />
                     <br />
 
-                    <select name="id" onChange={e => createPunchForm(e)}>
-                        <option default >Select Punch</option>
-                        {listOfPunches()}</select>
+                    {displayPunchForms()}
 
                 </>
             )
