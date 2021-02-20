@@ -3,10 +3,11 @@ import { Link } from "react-router-dom"
 import { connect } from 'react-redux'
 import { deleteDriver, updateDriver } from '../../action/driverAction'
 const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLoggedIn }) => {
-    const [flash, setFlash] = useState()
-    const [fName, setFname] = useState()
-    const [lName, setLname] = useState()
     const driver = drivers.find(driver => driver.id === match)
+    const [flash, setFlash] = useState("")
+    const [error, setError] = useState("")
+    const [fName, setFname] = useState(driver.first_name)
+    const [lName, setLname] = useState(driver.last_name)
     let displayDriver = () => {
         if (driver !== undefined) {
             let driversClients = driver.clients.map(client => {
@@ -32,8 +33,8 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLog
         if (driver !== undefined) {
             return (
                 <>
-                    <input type="text" name="first_name" onChange={e => setFname(e.target.value)} placeholder={driver.first_name} /> <br />
-                    <input type="text" name="last_name" onChange={e => setLname(e.target.value)} placeholder={driver.last_name} /> <br />
+                    <input type="text" placeholder="first name" name="first_name" onChange={e => setFname(e.target.value)} value={fName} /> <br />
+                    <input type="text" placeholder="last name" name="last_name" onChange={e => setLname(e.target.value)} value={lName} /> <br />
                 </>
             )
         }
@@ -45,10 +46,15 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLog
             first_name: fName,
             last_name: lName
         }
-        document.querySelector(".flashy").className = "updated"
-        setFlash(`${driver.first_name} ${driver.last_name} is updated!`)
-        updateDriver(updatedDriver)
-        setTimeout(() => history.push(`/drivers/${match}`), 2300)
+        if (fName && lName) {
+            document.querySelector("#flashy").className = "updated"
+            setFlash(`${driver.first_name} ${driver.last_name} is updated!`)
+            updateDriver(updatedDriver)
+            setTimeout(() => history.push(`/drivers/${match}`), 2300)
+        } else {
+            document.querySelector("#fail").className = "error"
+            setError("Please fill out all fields!")
+        }
     }
 
     let handleDelete = e => {
@@ -60,7 +66,6 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLog
         }
         deleteDriver(removingDriver)
         setFlash(`${driver.first_name} ${driver.last_name} is removed!`)
-        // let loadingPage = history.location.pathname.split(`drivers/${match}`)[0]
         setTimeout(() => history.push("/drivers"), 2300)
     }
     let redirect = () => {
@@ -83,7 +88,8 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLog
             <div>
                 <Link to={`/drivers/${match}`}>Back</Link>
             </div>
-            <div className="flashy">{flash}</div>
+            <div id="flashy">{flash}</div>
+            <div id="fail">{error}</div>
             {redirect()}
         </div>
     )
