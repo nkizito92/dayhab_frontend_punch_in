@@ -19,7 +19,7 @@ const DriverForm = ({ createDriver, history, isLoggedIn, current_user }) => {
 
         if (fName !== undefined && lName !== undefined) {
             flashing.className = "updated"
-            setFlash(`${fName}, ${lName} Created!`)
+            setFlash(`${fName} ${lName} Created!`)
             createDriver(newDriver)
             setTimeout(() => history.push("/drivers"), 2200);
         } else {
@@ -40,7 +40,7 @@ const DriverForm = ({ createDriver, history, isLoggedIn, current_user }) => {
             <form onSubmit={e => handleSumbit(e)}>
                 <input id="firstName" type="text" name="first_name" onChange={e => setFname(e.target.value)} placeholder="First name" /> <br />
                 <input id="lastName" type="text" name="last_name" onChange={e => setLname(e.target.value)} placeholder="Last name" /> <br />
-                <input type="submit" value="Create Driver" onClick={handleSumbit} />
+                <button onClick={handleSumbit} >Create Driver</button>
             </form>
             <div id="flash">{flash}</div>
             <div id="fail">{error}</div>
