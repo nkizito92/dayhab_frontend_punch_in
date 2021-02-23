@@ -4,7 +4,7 @@ class ClockContainer extends Component {
     render() {
         return (
             <div>
-                <ClockIn isLoggedIn={this.props.isLoggedIn} punchIn={this.props.punches} clients={this.props.clients} history={this.props.history} />
+                <ClockIn statusMessage={this.props.statusMessage} isLoggedIn={this.props.isLoggedIn} punchIn={this.props.punches} clients={this.props.clients} history={this.props.history} />
             </div>
         )
     }
