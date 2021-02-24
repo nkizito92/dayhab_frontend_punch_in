@@ -45,14 +45,14 @@ main {
     min-width: 400px;
     padding: 0 10px;
 }
-.profile {
+/* .profile {
     position: absolute;
     left: 0;
     color: white;
     width: 400px;
     height: 100%;
     background-color: #00307cc2;
-}
+} */
 table td {
     outline: 1px solid #000000;
 }
