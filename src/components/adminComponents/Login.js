@@ -55,8 +55,8 @@ const Login = ({ handleLogin, statusMessage, history, isLoggedInNow, users }) =>
                 <div>
                     or <Link to='/signup'>sign up</Link>
                 </div>
-
             </form>
+            <br />
             <div id="fail"></div>
             <div id="success">{flash}</div>
             {redirect()}
