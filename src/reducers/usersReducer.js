@@ -13,8 +13,10 @@ const usersReducer = (state = { users: [], loading: false }, action) => {
             }
         case 'EDIT_USER':
             let user = state.users.map(user => {
-                if (user.id === action.user.id)
+                if (user.id === action.user.id){
                     user.username = action.user.username
+                    user.password = action.user.password
+                }
                 return user
             })
 
