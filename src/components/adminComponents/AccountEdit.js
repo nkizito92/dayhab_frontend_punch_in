@@ -33,7 +33,7 @@ const AccountEdit = ({ statusMessage, users, match, history, isLoggedIn }) => {
                         <input type="password" name="password" placeholder="Current password" onChange={e => setCurPass(e.target.value)} />
                         <input type="password" name="password" placeholder="New password" onChange={e => setPass(e.target.value)} />
                         <input type="password" name="password_confirmation" placeholder="Password Confirmation" onChange={e => setPassCon(e.target.value)} />
-                        <button type="submit" onClick={handleSubmit}>Update Account</button>
+                        <button type="submit" onClick={(e)=> handleSubmit(e)}>Update Account</button>
                     </form>
                 </>
             )
