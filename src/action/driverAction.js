@@ -6,29 +6,25 @@ export const addDriver = driver => {
     })
 }
 
-export const fetchDrivers = () => {
-    return (dispatch) => {
-        dispatch({ type: "LOADING_DRIVERS" })
-        fetch(`${onlineUrl()}/drivers`).then(res => res.json())
-            .then(drivers => dispatch({ type: "ADD_DRIVERS", drivers: drivers }))
-    }
+export const fetchDrivers = () => dispatch => {
+    dispatch({ type: "LOADING_DRIVERS" })
+    fetch(`${onlineUrl()}/drivers`).then(res => res.json())
+        .then(drivers => dispatch({ type: "ADD_DRIVERS", drivers: drivers }))
 }
 
-export const createDriver = driver => {
-    return (dispatch) => {
-        fetch(`${onlineUrl()}/drivers`, {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ driver: driver })
-        }).then(res => res.json())
-            .then(newDriver => {
-                dispatch(addDriver(newDriver))
-            }).catch(error => {
-                console.log(error)
-            })
-    }
+export const createDriver = driver => dispatch => {
+    fetch(`${onlineUrl()}/drivers`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ driver: driver })
+    }).then(res => res.json())
+        .then(newDriver => {
+            dispatch(addDriver(newDriver))
+        }).catch(error => {
+            console.log(error)
+        })
 }
 
 export const editDriver = driver => {
@@ -38,19 +34,18 @@ export const editDriver = driver => {
     })
 }
 
-export const updateDriver = driverId => {
-    return (dispatch) => {
-        fetch(`${onlineUrl()}/drivers/${driverId.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ driver: driverId })
-        }).then(res => res.json())
-            .then(updatedDriver => {
-                dispatch(editDriver(updatedDriver))
-            }).catch(error => console.log(error))
-    }
+export const updateDriver = driverId => dispatch => {
+    fetch(`${onlineUrl()}/drivers/${driverId.id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ driver: driverId })
+    }).then(res => res.json())
+        .then(updatedDriver => {
+            dispatch(editDriver(updatedDriver))
+        }).catch(error => console.log(error))
+
 }
 export const removeDriver = driver => {
     return ({
@@ -59,13 +54,11 @@ export const removeDriver = driver => {
     })
 }
 
-export const deleteDriver = driver => {
-    return (dispatch) => {
-        fetch(`${onlineUrl()}/drivers/${driver.id}`, {
-            method: "DELETE",
-        }).then(res => res.json())
-            .then(deletedDriver => {
-                dispatch(removeDriver(deletedDriver))
-            })
-    }
+export const deleteDriver = driver => dispatch => {
+    fetch(`${onlineUrl()}/drivers/${driver.id}`, {
+        method: "DELETE",
+    }).then(res => res.json())
+        .then(deletedDriver => {
+            dispatch(removeDriver(deletedDriver))
+        })
 }
