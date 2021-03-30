@@ -46,17 +46,17 @@ main {
     min-width: 400px;
     padding: 0 10px;
 }
-.backLink > a {
+.backLink > a, .view {
     background-color: #17A2B8;
     padding: 10px 20px;
     border-radius: 10px;
     text-decoration: none;
     color: white;
 }
-.backLink > a:hover {
+.backLink > a:hover, .view:hover {
     background-color: #000000;
 }
-.backLink > a:active {
+.backLink > a:active, .view:active {
     background-color: #0026d1;
 }
 .profile {
@@ -91,12 +91,30 @@ td {
 .client:active{
     color:#008000;
 }
+.edit {
+    border: 2px solid #ffcb0e;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: none;
+    border-radius: 10px;
+    color: #c59d0d;
+}
+
+.edit:hover {
+    cursor: pointer;
+    color: #ffffff;
+    background-color: #ffcb0e;
+}
+.edit:active {
+    background-color: #000000;
+    color: #ffffff;
+}   
 
 button, .link, .button {
     text-decoration: none;
     margin: 10px 0;
     padding: 5px 200px;
-    background-color: #ffff;
+    background-color: none;
     border: 2px solid #17A2B8;
     color: #17A2B8;
     border-radius: 5px;
@@ -116,7 +134,7 @@ button:hover, .link:hover, .button:hover {
 .link:hover {
     background-color: green;
 }
-button:active, .link:active, .button:hover {
+button:active, .link:active, .button:active {
     border: 2px solid #0026d1 ;
     background-color: #0026d1;
 }
