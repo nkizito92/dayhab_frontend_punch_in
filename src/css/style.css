@@ -16,6 +16,7 @@ nav a:active {
 .clock {
     margin: 0 auto;
     background-color: black;
+    text-shadow: 2px 2px 5px white;
     color:white;
     width: 200px;
     border: 2px solid #0004ff;
@@ -77,22 +78,51 @@ table thead td {
 td {
     background-color: white;
 }
-button {
+
+.client {
+    text-decoration: none;
+    color: #0084ff;
+    font-weight: 700;
+}
+.client:hover {
+    cursor: pointer;
+    color: #000000;
+}
+.client:active{
+    color:#008000;
+}
+
+button, .link, .button {
+    text-decoration: none;
+    margin: 10px 0;
     padding: 5px 200px;
-    border: 1px solid white;
-    background-color: #17A2B8;
-    color: white;
+    background-color: #ffff;
+    border: 2px solid #17A2B8;
+    color: #17A2B8;
     border-radius: 5px;
 }
 
-button:hover {
+
+button:hover, .link:hover, .button:hover {
     cursor: pointer;
-    background-color: black;
+    color: white;
+    background-color: #17A2B8;
+}
+.link {
+    color: green;
+    border: 2px solid green;
 }
 
-button:active {
-    background-color: rgba(255, 166, 0, 0);
+.link:hover {
+    background-color: green;
 }
+button:active, .link:active, .button:hover {
+    border: 2px solid #0026d1 ;
+    background-color: #0026d1;
+}
+
+
+
 
 #account {
     position:absolute;
