@@ -45,14 +45,27 @@ main {
     min-width: 400px;
     padding: 0 10px;
 }
-/* .profile {
+.backLink > a {
+    background-color: #17A2B8;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: white;
+}
+.backLink > a:hover {
+    background-color: #000000;
+}
+.backLink > a:active {
+    background-color: #0026d1;
+}
+.profile {
     position: absolute;
     left: 0;
     color: white;
     width: 400px;
-    height: 100%;
+    height: 70%;
     background-color: #00307cc2;
-} */
+}
 table td {
     outline: 1px solid #000000;
 }
