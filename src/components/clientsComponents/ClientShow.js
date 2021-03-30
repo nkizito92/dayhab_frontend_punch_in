@@ -136,7 +136,7 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
                     <h2>PayRate: ${client.pay_rate}</h2>
                     <h3>SPA Hours: {displayAllMinutes()}</h3>
                     <h4>Money Earned: ${time_convert(totalMinutes())}</h4>
-                    <div>
+                    <div className="backLink">
                         <Link to="/clients">Go Back</Link>
                     </div>
                 </div>
