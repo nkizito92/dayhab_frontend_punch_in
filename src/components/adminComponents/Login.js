@@ -25,14 +25,14 @@ const Login = ({ handleLogin, statusMessage, history, isLoggedInNow, users }) =>
             document.querySelector("#success").className = "updated"
             goLogin(logging, handleLogin, statusMessage)
             setFlash(`Processing login..`)
-        }  else if(!username && !password) {
-                createAnElement("Please fill all fields")
-        }  else if(!username) {
-                createAnElement("Username wasn't entered")
-        }   else if (!password) {
-                createAnElement("Password wasn't entered")
-        }   else {
-                createAnElement("No such user exsit try again")
+        } else if (!username && !password) {
+            createAnElement("Please fill all fields")
+        } else if (!username) {
+            createAnElement("Username wasn't entered")
+        } else if (!password) {
+            createAnElement("Password wasn't entered")
+        } else {
+            createAnElement("No such user exsit try again")
         }
     }
 
@@ -53,7 +53,7 @@ const Login = ({ handleLogin, statusMessage, history, isLoggedInNow, users }) =>
                 /> <br />
                 <button placeholder="submit" type="submit" onClick={handleSubmit}>Log In</button>
                 <div>
-                    or <Link to='/signup'>sign up</Link>
+                    <Link className="link" to='/signup'>sign up</Link>
                 </div>
             </form>
             <br />
