@@ -1,10 +1,21 @@
 import React, { useState } from "react"
 import { connect } from "react-redux"
-import { updateClient, deleteClient } from "../../action/clientAction"
+import { updateClient, deleteClient, updateImage, deleteImage } from "../../action/clientAction"
 import { Link } from "react-router-dom"
+import { useForm } from "react-hook-form"
 
-const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, match, clients, isLoggedIn, current_user }) => {
+const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, match, clients, clientImage, isLoggedIn, current_user, statusMessage }) => {
+    let user = current_user
+    let redirect = () => {
+        if (!isLoggedIn) {
+            <>{history.push("/login")}</>
+            user = 0
+        }
+    }
+    if (user === undefined) redirect()
     const client = clients.find(client => client.id === match)
+    const { register, handleSubmit } = useForm()
+    const image = clientImage.filter(image => image.client_id === client.id)
     const [fullName, setfullName] = useState(client.full_name)
     const [payRate, setPayRate] = useState(client.pay_rate)
     const [driverId, setDriver] = useState(client.driver_id)
@@ -23,12 +34,48 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
             return <h3>There's No Punches!</h3>
         }
     }
+
+    const onSubmit = data => {
+        let formData = new FormData();
+        formData.append('image_element', data.image[0])
+        formData.append('user_id', "")
+        formData.append('client_id', match)
+        let clientImage = {
+            id: image[0].id,
+            newImage: formData
+        }
+        updateImage(clientImage, statusMessage)
+    }
+    const handleDeleteImage = () => {
+        let clientImage = {
+            id: image[0].id,
+        }
+        deleteImage(clientImage, statusMessage)
+    }
+
+    const displayImageForm = () => {
+        if (image[0])
+            return (
+                <>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <input type="file" name="image" {...register('image')} accept="image/*" required />
+                        <button>Update Image</button>
+                    </form>
+                    <form onSubmit={() => handleDeleteImage()}>
+                        <input className="delete" onClick={handleDeleteImage} type="button" value="Delete Photo" />
+                    </form>
+                    <br />
+                </>
+            )
+    }
+
     let displayClientForm = () => {
         if (client !== undefined) {
             return (
                 <>
                     <h1>Edit {client.full_name}</h1>
-                    <form onSubmit={e => handleSubmit(e)}>
+                    {displayImageForm()}
+                    <form onSubmit={e => handleSubmitForm(e)}>
                         <h2>Client's Driver is {client.driver.first_name} {client.driver.last_name}</h2>
                         <select name="driver_id" onChange={e => setDriver(e.currentTarget.selectedOptions[0].id.split("key")[1])}>
                             <option default hidden >{client.driver.first_name} {client.driver.last_name}</option>
@@ -36,8 +83,8 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
                         </select> <br />
                         <input name="full_name" placeholder="full name" onChange={e => setfullName(e.target.value)} value={fullName} /> <br />
                         <input type="number" min="0" step="0.01" name="pay_rate" placeholder="pay rate" onChange={e => setPayRate(e.target.value)} value={payRate} /> <br />
-                        <button type="submit" onClick={handleSubmit} >Update Client</button>
-                        <button type="submit" onClick={e => handleDelete(e)}>Delete Client</button>
+                        <button type="submit" onClick={handleSubmitForm} >Update Client</button>
+                        <button type="submit" className="delete" onClick={e => handleDelete(e)}>Delete Client</button>
                     </form>
                     <br />
                     <br />
@@ -108,7 +155,7 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
         })
     }
 
-    function handleSubmit(e) {
+    function handleSubmitForm(e) {
         e.preventDefault()
         let updatedClient = {
             id: match,
@@ -143,17 +190,12 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
         }
     }
 
-    let redirect = () => {
-        if (!isLoggedIn) {
-            <>{history.push("/login")}</>
-        }
-    }
+
     return (
         <div>
             {displayClientForm()}
             <div>
-                <Link to={`/clients/${match}`}>Back</Link>
-                {redirect()}
+                <Link className="view" to={`/clients/${match}`}>Back</Link>
             </div>
             <div id="success">{flash}</div>
             <div id="fail">{error}</div>
@@ -161,4 +203,4 @@ const ClientEdit = ({ updateClient, deleteClient, punches, drivers, history, mat
     )
 }
 
-export default connect(null, { updateClient, deleteClient })(ClientEdit)
+export default connect(null, { updateClient, deleteClient, updateImage, deleteImage })(ClientEdit)
