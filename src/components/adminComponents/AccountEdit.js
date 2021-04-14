@@ -48,6 +48,22 @@ const AccountEdit = ({ statusMessage, users, match, history, isLoggedIn, userIma
         }
         deleteImage(userImage, statusMessage)
     }
+
+    const displayImageForm = () => {
+        if (image[0]) {
+            return (
+                <>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <input type="file" name="image" {...register('image')} accept="image/*" required />
+                        <button>Submit</button>
+                    </form>
+                    <form onSubmit={() => handleDelete()}>
+                        <input className="delete" onClick={handleDelete} type="button" value="Delete Photo" />
+                    </form>
+                </>
+            )
+        }
+    }
     let displayForm = () => {
         if (user) {
             return (
@@ -63,13 +79,7 @@ const AccountEdit = ({ statusMessage, users, match, history, isLoggedIn, userIma
                         <button type="submit" onClick={(e) => handleSubmitUser(e)}>Update Account</button>
                     </form>
                     <br />
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <input type="file" name="image" {...register('image')} accept="image/*" required />
-                        <button>Submit</button>
-                    </form>
-                    <form onSubmit={() => handleDelete()}>
-                        <input onClick={handleDelete} type="button" value="Delete Photo" />
-                    </form>
+                    {displayImageForm()}
                 </>
             )
         }
