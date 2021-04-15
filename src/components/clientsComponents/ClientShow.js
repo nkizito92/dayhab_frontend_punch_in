@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
-const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
+const ClientShow = ({ clients, punches, match, isLoggedIn, clientImage }) => {
     const [month, setMonth] = useState(new Date().toLocaleDateString('default', { month: 'long' }))
     const client = clients.find(client => client.id === match)
-
+    const image = clientImage.filter(image => image.client_id === client.id)
     let time = []
     let theseClientPunches = punches.filter(punch => punch.client_id === client.id)
     let clockOuts = (clockingOut = []) => {
@@ -97,7 +97,8 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
         if (isLoggedIn) {
             return (
                 <div>
-                    <Link to={`/clients/${client.id}/edit`}>Edit Client</Link>
+                    <br />
+                    <Link className="edit" to={`/clients/${client.id}/edit`}>Edit Client</Link>
                 </div>
             )
         }
@@ -127,11 +128,23 @@ const ClientShow = ({ clients, punches, match, isLoggedIn }) => {
         }
     }
 
+    const readyImage = () => {
+        let imgSize = {
+            width: "200px",
+            height: "150px"
+        }
+        if (!image[0]) {
+            return <Link to={`/clients/${client.id}/photoedit`}>Add Picture!</Link>
+        } else {
+            return <img style={imgSize} src={image[0].image_element.url} alt="client" />
+        }
+    }
     let displayClient = () => {
         if (client !== undefined) {
             return (
                 <div className="profile">
                     <h1> {client.full_name} </h1>
+                    {readyImage()}
                     <h2>Driver: {client.driver.first_name} {client.driver.last_name}</h2>
                     <h2>PayRate: ${client.pay_rate}</h2>
                     <h3>SPA Hours: {displayAllMinutes()}</h3>
