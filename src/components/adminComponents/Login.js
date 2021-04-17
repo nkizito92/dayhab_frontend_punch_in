@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { goLogin } from '../../action/adminAction'
+import { goLogin } from '../../action/userAction'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 const Login = ({ handleLogin, statusMessage, history, isLoggedInNow, users }) => {

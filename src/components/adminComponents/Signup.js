@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { goSignup } from '../../action/adminAction'
+import { goSignup } from '../../action/userAction'
 const Signup = ({ history, handleLogin, isLoggedIn }) => {
     const [username, setUname] = useState()
     const [password, setPass] = useState()
