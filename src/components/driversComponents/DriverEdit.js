@@ -82,11 +82,11 @@ const DriverEdit = ({ drivers, history, match, deleteDriver, updateDriver, isLog
                 <form onSubmit={e => handleSubmit(e)}>
                     {driversInputs()}
                     <button type="submit" onClick={handleSubmit}>Update Driver </button>
-                    <button type="submit" onClick={handleDelete}>Delete Driver </button>
+                    <button type="submit" className="delete" onClick={handleDelete}>Delete Driver </button>
                 </form>
             </div>
             <div>
-                <Link to={`/drivers/${match}`}>Back</Link>
+                <Link className="backLink" to={`/drivers/${match}`}>Back</Link>
             </div>
             <div id="flashy">{flash}</div>
             <div id="fail">{error}</div>
