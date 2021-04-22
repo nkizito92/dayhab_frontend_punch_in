@@ -53,6 +53,7 @@ main {
     text-decoration: none;
     color: white;
 }
+
 .backLink > a:hover, .view:hover {
     background-color: #000000;
 }
@@ -91,13 +92,17 @@ td {
 .client:active{
     color:#008000;
 }
-.edit {
+.edit, .picLink {
     border: 2px solid #ffcb0e;
     text-decoration: none;
     padding: 10px 20px;
     background-color: none;
     border-radius: 10px;
     color: #c59d0d;
+}
+
+.picLink {
+    padding: 3px 15px;
 }
 
 .edit:hover {
@@ -108,9 +113,16 @@ td {
 .edit:active {
     background-color: #000000;
     color: #ffffff;
-}   
+}
+.userPhoto {
+    width: 200px;
+    height: 220px;
+} 
+.clientPhoto {
+    width: 200px;
+}  
 
-button, .link, .button {
+button, .link, .button, .delete {
     text-decoration: none;
     margin: 10px 0;
     padding: 5px 200px;
@@ -121,7 +133,7 @@ button, .link, .button {
 }
 
 
-button:hover, .link:hover, .button:hover {
+button:hover, .link:hover {
     cursor: pointer;
     color: white;
     background-color: #17A2B8;
@@ -134,12 +146,19 @@ button:hover, .link:hover, .button:hover {
 .link:hover {
     background-color: green;
 }
-button:active, .link:active, .button:active {
+.delete:hover {
+    color: #ffffff;
+    background-color: red;
+}
+button:active, .link:active, .delete:active {
     border: 2px solid #0026d1 ;
     background-color: #0026d1;
 }
 
-
+.delete {
+    color: red;
+    border: 2px solid red;
+}
 
 
 #account {
@@ -206,6 +225,7 @@ select {
     border-top-right-radius: 5px;
     color: white;
     width: 40%;
+    /* margin: 50px 0; */
 }
 
 footer {
