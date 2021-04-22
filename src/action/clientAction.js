@@ -28,6 +28,48 @@ export const createClient = client => dispatch => {
         }).then(res => res.json())
         .then(newClient => dispatch({ type: "ADD_CLIENT", client: newClient }))
 }
+
+export const createClientImage = (clientsImage) => {
+    let imageData = new FormData();
+    imageData.append('image_element', clientsImage.newImage.image[0])
+    imageData.append('user_id', "")
+    imageData.append('client_id', clientsImage.id)
+    fetch(`${onlineUrl()}/image_elements`, {
+        method: "POST",
+        body: imageData
+    }).then(res => res.json())
+        .then(data => {
+            // Tried to get dispatch to work
+        })
+
+}
+
+export const updateImage = (clientsImage, statusMessage) => {
+    fetch(`${onlineUrl()}/image_elements/${clientsImage.id}`, {
+        method: "PATCH",
+        body: clientsImage.newImage
+    }).then(res => res.json())
+        .then(data => {
+            if (data.message.success) {
+                statusMessage(data.message)
+            }
+            else statusMessage(data.message)
+        })
+
+}
+
+export const deleteImage = (clientsImage, statusMessage) => {
+    fetch(`${onlineUrl()}/image_elements/${clientsImage.id}`, {
+        method: "DELETE"
+    }).then(res => res.json())
+        .then(data => {
+            if (data.message.success) {
+                statusMessage(data.message)
+            }
+            else statusMessage(data.message)
+        })
+
+}
 export const editClient = client => {
     return {
         type: "EDIT_CLIENT",
