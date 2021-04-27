@@ -14,15 +14,17 @@ import DriverEdit from './components/driversComponents/DriverEdit'
 import DriverShow from './components/driversComponents/DriverShow'
 import ClientShow from './components/clientsComponents/ClientShow'
 import ClientEdit from './components/clientsComponents/ClientEdit'
+import ClientPicEdit from './components/clientsComponents/ClientPicEdit'
 import ClientForm from './components/clientsComponents/ClientForm'
 import ClockEdit from './components/clockComponents/ClockEdit'
 import AccountEdit from './components/adminComponents/AccountEdit'
+import UserPicEdit from './components/adminComponents/UserPicEdit'
 import AccountShow from './components/adminComponents/AccountShow'
 import Navbar from './headers/Navbar'
 import { fetchPunches } from './action/clockAction'
 import { fetchClients } from './action/clientAction'
 import { fetchDrivers } from './action/driverAction'
-import { fetchUsers } from './action/adminAction'
+import { fetchUsers, fetchImages } from './action/userAction'
 import { connect } from 'react-redux'
 import './css/style.css'
 import './App.css';
@@ -41,6 +43,7 @@ class App extends Component {
     this.props.fetchClients()
     this.props.fetchDrivers()
     this.props.fetchUsers()
+    this.props.fetchImages()
     this.loginStatus()
   }
 
@@ -116,14 +119,16 @@ class App extends Component {
             <Route exact path="/punches/:id/edit" component={({ history, match }) => <ClockEdit current_user={this.state.user.id} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn} />} />
             <Route exact path="/clients" component={() => <ClientContainer current_user={this.state.user.id} clients={this.props.clients} punches={this.props.punches} isLoggedIn={this.state.isLoggedIn} />} />
             <Route exact path="/clients/new" component={({ history }) => <ClientForm current_user={this.state.user.id} drivers={this.props.drivers} clients={this.props.clients} history={history} isLoggedIn={this.state.isLoggedIn} />} />
-            <Route exact path="/clients/:id" component={({ match, history }) => <ClientShow current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} />} />
-            <Route exact path="/clients/:id/edit" component={({ match, history }) => <ClientEdit current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} drivers={this.props.drivers} />} />
+            <Route exact path="/clients/:id" component={({ match, history }) => <ClientShow clientImage={this.props.images} current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} />} />
+            <Route exact path="/clients/:id/edit" component={({ match, history }) => <ClientEdit statusMessage={this.statusMessage} clientImage={this.props.images} current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} punches={this.props.punches} history={history} match={Number(parseInt(match.params.id))} drivers={this.props.drivers} />} />
+            <Route exact path="/clients/:id/photoedit" component={({ match, history }) => <ClientPicEdit statusMessage={this.statusMessage} clientImage={this.props.images} current_user={this.state.user.id} isLoggedIn={this.state.isLoggedIn} clients={this.props.clients} history={history} match={match} />} />
             <Route exact path="/drivers" component={() => <DriverContainer current_user={this.state.user.id} clients={this.props.clients} drivers={this.props.drivers} isLoggedInNow={this.state.isLoggedIn} />} />
             <Route exact path="/drivers/new" component={({ history }) => <DriverForm current_user={this.state.user.id} history={history} drivers={this.props.drivers} isLoggedIn={this.state.isLoggedIn} />} />
             <Route exact path="/drivers/:id" component={({ match, history }) => <DriverShow clients={this.props.clients} current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} isLoggedInNow={this.state.isLoggedIn} />} />
             <Route exact path="/drivers/:id/edit" component={({ match, history }) => <DriverEdit current_user={this.state.user.id} drivers={this.props.drivers} history={history} match={Number(parseInt(match.params.id))} isLoggedIn={this.state.isLoggedIn} />} />
-            <Route exact path="/users/:id" component={({ match, history }) => <AccountShow isLoggedIn={this.state.isLoggedIn} history={history} match={match} users={this.props.users} />} />
-            <Route exact path="/users/:id/edit" component={({ match, history }) => <AccountEdit isLoggedIn={this.state.isLoggedIn} match={match} users={this.props.users} statusMessage={this.statusMessage} history={history} />} />
+            <Route exact path="/users/:id" component={({ match, history }) => <AccountShow isLoggedIn={this.state.isLoggedIn} history={history} match={match} users={this.props.users} userImage={this.props.images} />} statusMessage={this.statusMessage} />
+            <Route exact path="/users/:id/edit" component={({ match, history }) => <AccountEdit userImage={this.props.images} isLoggedIn={this.state.isLoggedIn} match={match} users={this.props.users} statusMessage={this.statusMessage} history={history} />} />
+            <Route exact path="/users/:id/photoedit" component={({ match, history }) => <UserPicEdit isLoggedIn={this.state.isLoggedIn} history={history} match={match} users={this.props.users} userImage={this.props.images} />} statusMessage={this.statusMessage} />
           </Switch>
           <br />
           <div id="message">{this.statusDisplayMessage()}</div>
@@ -142,8 +147,9 @@ const mapStateToProps = state => {
     punches: state.clockinsReducer.punches,
     clients: state.clientsReducer.clients,
     drivers: state.driversReducer.drivers,
+    images: state.imagesReducer.images,
     users: state.usersReducer.users
   }
 }
 
-export default connect(mapStateToProps, { fetchPunches, fetchClients, fetchDrivers, fetchUsers })(App)
+export default connect(mapStateToProps, { fetchPunches, fetchImages, fetchClients, fetchDrivers, fetchUsers })(App)
