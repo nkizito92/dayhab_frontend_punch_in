@@ -16,12 +16,12 @@ class Clients extends Component {
             let usersClients = this.props.clients.filter(client => client.driver.user_id === this.props.current_user)
             if (!this.props.current_user) {
                 return this.props.clients.slice(0, 4).map(client => {
-                    return <tr key={`key${client.id}`}><Client key={`key${client.id}`} client={client} punches={thesePunches} month={this.state.month} /></tr>
+                    return <tr key={`key${client.id}`}><Client className="client" key={`key${client.id}`} client={client} punches={thesePunches} month={this.state.month} /></tr>
                 })
             }
             else {
                 return usersClients.map(client => {
-                    return <tr key={`key${client.id}`}><Client key={`key${client.id}`} client={client} punches={thesePunches} month={this.state.month} /></tr>
+                    return <tr key={`key${client.id}`}><Client className="client" key={`key${client.id}`} client={client} punches={thesePunches} month={this.state.month} /></tr>
                 })
             }
         } else {
@@ -49,7 +49,8 @@ class Clients extends Component {
         if (this.props.isLoggedIn) {
             return (
                 <div>
-                    <Link to="/clockin">Go To Time Clock</Link>
+                    <br />
+                    <Link className="link" to="/clockin">Go To Time Clock</Link>
                 </div>
             )
         }

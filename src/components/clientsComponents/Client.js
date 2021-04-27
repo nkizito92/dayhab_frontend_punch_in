@@ -103,7 +103,7 @@ const Client = ({ client, punches, month }) => {
     }
     return (
         <>
-            <td><Link to={`/clients/${client.id}`}>{client.full_name}</Link> </td>
+            <td><Link className="client" to={`/clients/${client.id}`}>{client.full_name}</Link> </td>
             <td>${client.pay_rate}</td>
             <td>{displayAllMinutes()}</td>
             <td>${time_convert(totalMinutes())}</td>
