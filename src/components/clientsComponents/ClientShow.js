@@ -134,7 +134,7 @@ const ClientShow = ({ clients, punches, match, isLoggedIn, clientImage }) => {
             height: "150px"
         }
         if (!image[0]) {
-            return <Link to={`/clients/${client.id}/photoedit`}>Add Picture!</Link>
+            return <Link className="picLink " to={`/clients/${client.id}/photoedit`}>Add Picture!</Link>
         } else {
             return <img style={imgSize} src={image[0].image_element.url} alt="client" />
         }
