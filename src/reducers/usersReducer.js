@@ -11,19 +11,6 @@ const usersReducer = (state = { users: [], loading: false }, action) => {
                 ...state,
                 users: action.users
             }
-        case 'EDIT_USER':
-            let user = state.users.map(user => {
-                if (user.id === action.user.id){
-                    user.username = action.user.username
-                    user.password = action.user.password
-                }
-                return user
-            })
-
-            return {
-                ...state,
-                users: user
-            }
 
         default: return state
     }
