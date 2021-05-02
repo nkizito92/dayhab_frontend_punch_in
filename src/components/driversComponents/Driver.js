@@ -5,7 +5,7 @@ const Driver = ({driver, clients}) => {
         <div>
             <h1>{driver.first_name} {driver.last_name}</h1>
             <h2>Clients: {driversClients.length}</h2>
-            <Link to={"drivers/"+driver.id} >View Driver </Link>
+            <Link className="view" to={"drivers/"+driver.id} >View Driver </Link>
         </div>
     )
 }

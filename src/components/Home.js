@@ -2,15 +2,20 @@ import { Link } from 'react-router-dom'
 const Home = ( {isLoggedIn}) => {
     let displayLinks = () => {
         if (isLoggedIn) {
-            return (
-                <Link to="/clockin">Go To Time Clock</Link>
-            )
+            
+            return ( <>
+            <br />
+            <Link className="link" to="/clockin">Go To Time Clock</Link> </>
+)
         } else {
             return (
                 <>
-                <Link to="/login">Login</Link>
                 <div>
-                    <Link to="/Signup">Signup</Link>
+                <br/>
+                <Link className="button" to="/login">Login</Link>
+                <br/>
+                <br/>
+                    <Link className="link" to="/Signup">Signup</Link>
                 </div>
                 </>
             )
