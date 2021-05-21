@@ -31,10 +31,13 @@ export const createPunch = (punched, statusMessage) => {
     }
 }
 
-export const deletePunch = (punches, deletingPunch) => {
+export const deletePunch = (punches, deletingPunch, statusMessage) => {
     function deleteRequest(obj, obj_id, dispatch) {
         axios.delete(`${onlineUrl()}/punches/${obj_id}`, { obj })
-            .then(res => dispatch({ type: "DELETE_PUNCH", punch: res.data }))
+            .then(res => {
+                statusMessage(res.data.message)
+                dispatch({ type: "DELETE_PUNCH", punch: res.data })
+            })
             .catch(error => console.log(error))
     }
     return (dispatch) => {
@@ -48,9 +51,12 @@ export const deletePunch = (punches, deletingPunch) => {
 
 }
 
-export const updatePunch = punch => {
+export const updatePunch = (punch, statusMessage) => {
     return (dispatch) => {
         axios.patch(`${onlineUrl()}/punches/${punch.id}`, { punch })
-            .then(res => dispatch({ type: "EDIT_PUNCH", punch: res.data }))
+            .then(res => { 
+                statusMessage(res.data.message)
+                dispatch({ type: "EDIT_PUNCH", punch: res.data })
+            })
     }
 }
