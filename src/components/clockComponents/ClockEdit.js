@@ -2,7 +2,7 @@ import { connect } from "react-redux"
 import React, { useState } from "react"
 import { updatePunch, deletePunch } from "../../action/clockAction"
 import { Link } from 'react-router-dom'
-const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePunch }) => {
+const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePunch, statusMessage }) => {
     let punch = punches.find(punch => punch.id === match)
     const [clockIn, setClIn] = useState()
     const [clockOut, setClOut] = useState()
@@ -88,7 +88,7 @@ const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePun
         if (convertLocalTime) {
             document.getElementById("success").className = "updated"
             setFlash("Time Updated!!")
-            updatePunch(punchUpdated)
+            updatePunch(punchUpdated , statusMessage)
             setTimeout(() => history.push("/clients/" + punch.client_id), 2300)
         } else {
             document.getElementById("fail").className = "error"
@@ -105,7 +105,7 @@ const ClockEdit = ({ isLoggedIn, punches, history, match, updatePunch, deletePun
         let clientsPunches = punches.filter(punched => punched.client.full_name === punch.client.full_name)
         document.getElementById("success").className = "updated"
         setFlash("Time Delete!!")
-        deletePunch(clientsPunches, deletingPunch)
+        deletePunch(clientsPunches, deletingPunch, statusMessage)
         setTimeout(() => history.push("/clients/" + punch.client_id), 2300)
     }
     let redirect = () => {
