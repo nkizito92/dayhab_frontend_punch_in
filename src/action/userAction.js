@@ -56,7 +56,8 @@ export const addImage = imageData => {
         image: imageData
     }
 }
-export const createImage = (usersImage) => {
+export const createImage = (usersImage) => dispatch => {
+    // dispatch cancels out this function action.
     let imageData = new FormData();
     imageData.append('image_element', usersImage.newImage.image[0])
     imageData.append('user_id', usersImage.id)
@@ -66,6 +67,7 @@ export const createImage = (usersImage) => {
         body: imageData
     }).then(res => res.json())
         .then(data => {
+            dispatch(addImage(data))
             // Tried to get dispatch to work
         })
 
