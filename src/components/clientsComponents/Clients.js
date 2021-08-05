@@ -58,6 +58,7 @@ class Clients extends Component {
         }
     }
     goToClientpage(e) {
+        e.preventDefault()
         this.setState({
             inputValue: e.target.value
         })
@@ -73,8 +74,6 @@ class Clients extends Component {
         this.setState({
             inputValue: e.target.value
         })
-        let theseClients = this.props.clients.filter(client => this.state.inputValue.includes(client.full_name.slice(0, 3).toLowerCase()))
-        console.log(theseClients)
     }
 
     displayList() {
@@ -94,7 +93,7 @@ class Clients extends Component {
                         <input onChange={(e) => this.displayListOfClients(e)} value={this.state.inputValue.toLowerCase()} type="search" placeholder="Search..." />
                         <div className="clientsList">{this.displayList()}</div>
                     </div>
-                    <input type="submit" onClick={(e) => this.goToClientpage(e)} value="Search Name" />
+                    <input type="submit" onClick={(e) => this.goToClientpage(e)} />
                 </form>
                 <h1>Clients</h1>
                 <select onChange={e => this.handleMonth(e)}>
