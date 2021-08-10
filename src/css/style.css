@@ -92,6 +92,15 @@ td {
 .client:active{
     color:#008000;
 }
+
+.clientsList {
+    position: relative;
+    top: -5px;
+    margin: 0 auto;
+    background-color: white;
+    text-align: center;
+    width: 60%;
+}
 .edit, .picLink {
     border: 2px solid #ffcb0e;
     text-decoration: none;
