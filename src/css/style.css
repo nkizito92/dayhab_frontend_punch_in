@@ -92,7 +92,18 @@ td {
 .client:active{
     color:#008000;
 }
+.ListOfNames{
+    text-align:left;
+}
 
+.ListOfNames:hover{
+background-color: #ececec;
+}
+.clientNames {
+    text-decoration: none;
+    color:#616161;
+    font-weight: 650;
+}
 .clientsList {
     position: relative;
     top: -5px;
