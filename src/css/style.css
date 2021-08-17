@@ -104,6 +104,12 @@ background-color: #ececec;
     color:#616161;
     font-weight: 650;
 }
+.clientNames:active {
+    background-color:none;
+    color: blue;
+}
+    
+
 .clientsList {
     position: relative;
     top: -5px;
